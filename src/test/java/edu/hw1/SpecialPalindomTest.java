@@ -9,7 +9,7 @@ public class SpecialPalindomTest {
     @DisplayName("Simple first test")
     public void testFirstSampleSet()
     {
-        boolean expected = false;
+        boolean expected = true;
         boolean response = SpecialPalindrom.checkNumForPalindrom(11211230);
         Assertions.assertEquals(expected, response);
     }
