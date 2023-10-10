@@ -5,14 +5,12 @@ public class SpecialPalindrom {
     }
 
     private static boolean isPalindrom(String s) {
-        boolean fl = true;
         for (int i = 0; i < s.length() / 2; i++) {
             if (s.charAt(i) != s.charAt(s.length() - i - 1)) {
-                fl = false;
-                break;
+                return false;
             }
         }
-        return fl;
+        return true;
     }
 
     private static String getNextGeneration(String numStr) {
