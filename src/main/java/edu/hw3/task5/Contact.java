@@ -18,8 +18,7 @@ public class Contact {
     }
 
     public String getFullName() {
-        if(firstName.length() != 0)
-        {
+        if (firstName.length() != 0) {
             return firstName + " " + lastName;
         }
         return lastName;
@@ -34,15 +33,22 @@ public class Contact {
     }
 
     @Override public String toString() {
-        return "Contact{" +
-            "firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            '}';
+        return "Contact{"
+            + "firstName='"
+            + firstName
+            + '\''
+            + ", lastName='" + lastName
+            + '\''
+            + '}';
     }
 
     @Override public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Contact contact = (Contact) o;
         return Objects.equals(firstName, contact.firstName) && Objects.equals(lastName, contact.lastName);
     }

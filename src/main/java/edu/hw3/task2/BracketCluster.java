@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BracketCluster {
+    private BracketCluster() {
+    }
+
     public static List<String> clusterizeString(String s) {
-        if(s == null)
-        {
+        if (s == null) {
             return List.of();
         }
         List<String> clusters = new ArrayList<>();

@@ -2,7 +2,7 @@ package edu.hw3.task6;
 
 import java.util.PriorityQueue;
 
-public class Market implements StockMarket{
+public class Market implements StockMarket {
     PriorityQueue<Stock> stocks;
 
     public Market() {
@@ -22,16 +22,5 @@ public class Market implements StockMarket{
     @Override
     public Stock mostValuableStock() {
         return stocks.peek();
-    }
-    public static void main(String[] args) {
-        StockMarket stockMarket = new Market();
-
-        Stock stock1 = new Stock("AAPL", 150);
-        Stock stock3 = new Stock("TSLA", 700);
-
-        stockMarket.add(stock1);
-        stockMarket.add(stock3);
-
-        System.out.println("Most Valuable Stock: " + stockMarket.mostValuableStock().getName());
     }
 }

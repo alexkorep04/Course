@@ -1,9 +1,11 @@
 package edu.hw3.task1;
 
 public class AtbashCode {
+    private AtbashCode() {
+    }
+
     public static String applyAtbashCode(String input) {
-        if(input == null)
-        {
+        if (input == null) {
             return "";
         }
         StringBuilder ans = new StringBuilder();

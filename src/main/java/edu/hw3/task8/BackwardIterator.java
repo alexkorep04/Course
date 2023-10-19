@@ -16,7 +16,7 @@ public class BackwardIterator<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        return index>=0;
+        return index >= 0;
     }
 
     @Override
@@ -27,11 +27,5 @@ public class BackwardIterator<T> implements Iterator<T> {
         T element = list.get(index);
         index--;
         return element;
-    }
-    public static void main(String[] args) {
-        BackwardIterator<Integer> backwardIterator = new BackwardIterator<>(List.of(1, 2, 3));
-        while (backwardIterator.hasNext()) {
-            System.out.println(backwardIterator.next());
-        }
     }
 }
