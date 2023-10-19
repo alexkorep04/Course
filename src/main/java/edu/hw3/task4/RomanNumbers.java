@@ -3,12 +3,14 @@ package edu.hw3.task4;
 import java.util.TreeMap;
 
 public class RomanNumbers {
+    private RomanNumbers() {
+    }
 
     private static final TreeMap<Integer, String> ROMAN = new TreeMap<>();
 
     @SuppressWarnings("MagicNumber")
 
-    private RomanNumbers() {
+    private static void fillMap() {
         ROMAN.put(1, "I");
         ROMAN.put(4, "IV");
         ROMAN.put(5, "V");
@@ -26,6 +28,7 @@ public class RomanNumbers {
 
     @SuppressWarnings("MagicNumber")
     public static String toRoman(int number) {
+        fillMap();
         if (number < 1 || number > 4000) {
             throw new IllegalArgumentException("Value should be from 1 to 4000");
         }
