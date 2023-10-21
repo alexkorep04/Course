@@ -9,6 +9,7 @@ public class Session {
     private final char[] userAnswer;
     private final int maxAttempts;
     private int attempts;
+
     public Session(String answer, int maxAttempts) {
         this.answer = answer;
         this.maxAttempts = maxAttempts;

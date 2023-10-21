@@ -1,7 +1,8 @@
 package edu.project1;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
 
 public class Dictionary {
     List<String> words;
@@ -10,8 +11,7 @@ public class Dictionary {
         this.words = words;
     }
 
-    public void addWord(String word)
-    {
+    public void addWord(String word) {
         words.add(word);
     }
 

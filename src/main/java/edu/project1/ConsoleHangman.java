@@ -26,10 +26,11 @@ public class ConsoleHangman {
         return input.length() == 1 && Character.isLetter(input.charAt(0));
     }
 
+    @SuppressWarnings("MagicNumber")
     public void run() {
         Scanner scanner = new Scanner(System.in);
         Session session = new Session(dictionary.randomWord().toLowerCase(), maxAttempts);
-        if(session.getAnswer().length() < 3) {
+        if (session.getAnswer().length() < 3) {
             LOGGER.info("Sorry, the game is broken! Try to run it again!");
             return;
         }
@@ -41,7 +42,7 @@ public class ConsoleHangman {
             }
             LOGGER.info("Guess a letter: ");
             String input = scanner.nextLine().toLowerCase();
-            if(input.equals("surrender")) {
+            if (input.equals("surrender")) {
                 guessResult = session.giveUp();
                 printState(guessResult);
             }
