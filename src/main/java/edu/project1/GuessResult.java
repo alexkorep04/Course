@@ -2,7 +2,7 @@ package edu.project1;
 
 import org.jetbrains.annotations.NotNull;
 
-sealed public interface GuessResult {
+sealed public interface GuessResult  {
 
     char[] state();
 
