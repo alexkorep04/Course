@@ -42,7 +42,7 @@ public class ConsoleHangman {
             }
             LOGGER.info("Guess a letter: ");
             String input = scanner.nextLine().toLowerCase();
-            if (input.equals("surrender")) {
+            if ("surrender".equals(input)) {
                 guessResult = session.giveUp();
                 printState(guessResult);
             }

@@ -23,9 +23,9 @@ public class DictionaryClassTest {
     @DisplayName("Check that random word is from list")
     public void checkThatRandomWordIsAtList()
     {
-        boolean expected = true;
         boolean response = dictionary.getWords().contains(dictionary.randomWord());
-        assertThat(expected).isEqualTo(response);
+
+        assertThat(response).isTrue();
     }
     @Test
     @DisplayName("Check that new word was added to list")
@@ -33,8 +33,9 @@ public class DictionaryClassTest {
     {
         String newWord = "nissan";
         dictionary.addWord(newWord);
-        boolean expected = true;
+
         boolean response = dictionary.getWords().contains(newWord);
-        assertThat(expected).isEqualTo(response);
+
+        assertThat(response).isTrue();
     }
 }

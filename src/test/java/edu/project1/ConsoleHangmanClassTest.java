@@ -16,11 +16,9 @@ public class ConsoleHangmanClassTest extends ConsoleHangman {
         String pattern = "a";
         ConsoleHangman consoleHangman = new ConsoleHangman();
 
-        boolean expected = true;
-
         boolean response = consoleHangman.isCorrectInput(pattern);
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isTrue();
     }
     @Test
     @DisplayName("Uncorrect input letter test - not letter")
@@ -29,11 +27,9 @@ public class ConsoleHangmanClassTest extends ConsoleHangman {
         String pattern = "!";
         ConsoleHangman consoleHangman = new ConsoleHangman();
 
-        boolean expected = false;
-
         boolean response = consoleHangman.isCorrectInput(pattern);
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isFalse();
     }
 
     @Test
@@ -43,11 +39,9 @@ public class ConsoleHangmanClassTest extends ConsoleHangman {
         String pattern = "abc";
         ConsoleHangman consoleHangman = new ConsoleHangman();
 
-        boolean expected = false;
-
         boolean response = consoleHangman.isCorrectInput(pattern);
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isFalse();
     }
 
 }

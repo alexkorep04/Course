@@ -33,17 +33,17 @@ public class Session {
         if (attempts >= maxAttempts) {
             return new GuessResult.Defeat(userAnswer, attempts, maxAttempts, "You lost!\n");
         }
-        boolean fl = false;
+        boolean isSuccessfulGuess = false;
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess) {
-                fl = true;
+                isSuccessfulGuess = true;
                 userAnswer[i] = guess;
             }
         }
-        if (fl && String.valueOf(userAnswer).equals(answer)) {
+        if (isSuccessfulGuess && String.valueOf(userAnswer).equals(answer)) {
             return new GuessResult.Win(userAnswer, attempts, maxAttempts, "You won!\n");
         }
-        if (fl) {
+        if (isSuccessfulGuess) {
             return new GuessResult.SuccessfulGuess(
                 userAnswer,
                 attempts,
