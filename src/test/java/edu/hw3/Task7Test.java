@@ -18,6 +18,6 @@ public class Task7Test {
 
         boolean response = map.containsKey(null);
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
 }

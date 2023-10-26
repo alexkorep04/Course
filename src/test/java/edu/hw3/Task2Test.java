@@ -18,7 +18,7 @@ public class Task2Test {
 
         List<String> response = BracketCluster.clusterizeString("((()))(())()()(()())");
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
     @Test
     @DisplayName("Test splitting brackets in simple string")
@@ -28,7 +28,7 @@ public class Task2Test {
 
         List<String> response = BracketCluster.clusterizeString("()");
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
     @Test
     @DisplayName("Test null string")
@@ -38,6 +38,6 @@ public class Task2Test {
 
         List<String> response = BracketCluster.clusterizeString("");
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
 }

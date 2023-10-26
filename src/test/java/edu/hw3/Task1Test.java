@@ -12,14 +12,14 @@ public class Task1Test {
     @DisplayName("Test strings that contain only latin symbols")
     public void testLatinStrings(String response, String expected)
     {
-        assertThat(expected).isEqualTo(AtbashCode.applyAtbashCode(response));
+        assertThat(AtbashCode.applyAtbashCode(response)).isEqualTo(expected);
     }
     @ParameterizedTest
     @CsvSource(value = {"Hello world!, Svool dliow!", "123(), 123()", "2a1, 2z1"})
     @DisplayName("Test strings that contain not latin symbols")
     public void testNotLatinStrings(String response, String expected)
     {
-        assertThat(expected).isEqualTo(AtbashCode.applyAtbashCode(response));
+        assertThat(AtbashCode.applyAtbashCode(response)).isEqualTo(expected);
     }
     @Test
     @DisplayName("Test when string is null")
@@ -29,6 +29,6 @@ public class Task1Test {
 
         String response = AtbashCode.applyAtbashCode("");
 
-        assertThat(expected).isEqualTo(AtbashCode.applyAtbashCode(response));
+        assertThat(AtbashCode.applyAtbashCode(response)).isEqualTo(expected);
     }
 }

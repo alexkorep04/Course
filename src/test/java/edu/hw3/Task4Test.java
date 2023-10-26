@@ -16,7 +16,7 @@ public class Task4Test {
     @DisplayName("Test correct arabic numbers")
     public void testNotLatinStrings(int response, String expected)
     {
-        assertThat(expected).isEqualTo(RomanNumbers.toRoman(response));
+        assertThat(RomanNumbers.toRoman(response)).isEqualTo(expected);
     }
     @Test
     @DisplayName("Test uncorrect arabic numbers")

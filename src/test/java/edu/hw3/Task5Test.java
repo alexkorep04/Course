@@ -17,7 +17,7 @@ public class Task5Test {
         Contact[] expected = {new Contact("Thomas Aquinas"), new Contact("Rene Descartes"), new Contact("David Hume"), new Contact("John Locke")};
 
         Contact[] response = ContactSorter.parseContacts(contacts, "ASC");
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
     @Test
     @DisplayName("Test sorting in DESC by last name")
@@ -28,7 +28,7 @@ public class Task5Test {
         Contact[] expected = {new Contact("John Locke"), new Contact("David Hume"), new Contact("Rene Descartes"), new Contact("Thomas Aquinas")};
 
         Contact[] response = ContactSorter.parseContacts(contacts, "DESC");
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
     @Test
     @DisplayName("Test sorting in DESC  where one contact has only first name")
@@ -39,7 +39,7 @@ public class Task5Test {
         Contact[] expected = {new Contact("John Locke"), new Contact("Rene Descartes"), new Contact("David"), new Contact("Thomas Aquinas")};
 
         Contact[] response = ContactSorter.parseContacts(contacts, "DESC");
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
     @Test
     @DisplayName("Test sorting in ASC empty contact array")
@@ -50,6 +50,6 @@ public class Task5Test {
         Contact[] expected = {};
 
         Contact[] response = ContactSorter.parseContacts(contacts, "ASC");
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
 }

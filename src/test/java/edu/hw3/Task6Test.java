@@ -26,7 +26,7 @@ public class Task6Test {
 
         Stock response = market.mostValuableStock();
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class Task6Test {
 
         Stock response = market.mostValuableStock();
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
     @Test
     @DisplayName("Test the most valuable stock on market where only 1 stock")
@@ -55,6 +55,6 @@ public class Task6Test {
 
         Stock response = market.mostValuableStock();
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
 }

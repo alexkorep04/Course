@@ -21,6 +21,6 @@ public class Test8Test {
             response.add(iterator.next());
         }
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
 }

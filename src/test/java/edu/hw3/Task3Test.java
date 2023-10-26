@@ -17,7 +17,7 @@ public class Task3Test
 
         var response = FrequencyOfObjects.getFrequency(List.of(1, 1, 2, 2));
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class Task3Test
 
         var response = FrequencyOfObjects.getFrequency(List.of("hello", "hi", "bye", "hi"));
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
 
     @Test
@@ -39,6 +39,6 @@ public class Task3Test
 
         var response = FrequencyOfObjects.getFrequency(List.of(true, true, false));
 
-        assertThat(expected).isEqualTo(response);
+        assertThat(response).isEqualTo(expected);
     }
 }
