@@ -2,17 +2,17 @@ package edu.hw3.task7;
 
 import java.util.Comparator;
 
-public class NullHandlingComparator implements Comparator<String> {
+public class NullHandlingComparator<V extends Comparable<V>> implements Comparator<V> {
 
     @Override
-    public int compare(String s1, String s2) {
-        if (s1 == null && s2 == null) {
+    public int compare(V first, V second) {
+        if (first == null && second == null) {
             return 0;
-        } else if (s1 == null) {
+        } else if (first == null) {
             return -1;
-        } else if (s2 == null) {
+        } else if (second == null) {
             return 1;
         }
-        return s1.compareTo(s2);
+        return first.compareTo(second);
     }
 }
