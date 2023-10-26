@@ -111,11 +111,14 @@ public class Task {
     }
 
     public boolean areSpidersBiteMoreOftenThanDogs(List<Animal> animals) {
-        double cntSpiders = (double)animals.stream().filter(animal -> animal.type() == Type.SPIDER).count();
-        double cntDogs = (double)animals.stream().filter(animal -> animal.type() == Type.DOG).count();
-        double cntSpidersBite = (double)animals.stream().filter(animal -> animal.bites() && animal.type() == Type.SPIDER).count();
-        double cntDogsBite = (double)animals.stream().filter(animal -> animal.bites() && animal.type() == Type.DOG).count();
-        return cntSpidersBite/cntSpiders > cntDogsBite/cntDogs;
+        double cntSpiders = (double) animals.stream().filter(animal -> animal.type() == Type.SPIDER).count();
+        double cntDogs = (double) animals.stream().filter(animal -> animal.type() == Type.DOG).count();
+        double cntSpidersBite = (double) animals.stream()
+            .filter(animal -> animal.bites() && animal.type() == Type.SPIDER)
+            .count();
+        double cntDogsBite = (double) animals.stream()
+            .filter(animal -> animal.bites() && animal.type() == Type.DOG).count();
+        return cntSpidersBite / cntSpiders > cntDogsBite / cntDogs;
     }
 
     public Animal getTheHeaviestFish(List<Animal> animals1, List<Animal> animals2) {
