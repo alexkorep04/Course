@@ -2,6 +2,7 @@ package edu.hw4.task;
 
 import edu.hw4.base.Animal;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,7 @@ public class NewValidation {
 
     @SuppressWarnings("MultipleStringLiterals")
     public static String getValidationErrors(Animal animal) {
-        Set<NewValidationError> errors = new HashSet<>();
+        Set<NewValidationError> errors = new LinkedHashSet<>();
         if (animal.age() < 0) {
             errors.add(new NewValidationError("age", "Age can't be negative!"));
         }
