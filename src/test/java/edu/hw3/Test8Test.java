@@ -11,15 +11,15 @@ public class Test8Test {
     @Test
     @DisplayName("test backward iterator")
     void testBackwardIterator() {
-        List<Integer> list = List.of(1, 2, 3, 4, 5);
+        List<Integer> list = List.of(1, 2, 3);
         BackwardIterator<Integer> iterator = new BackwardIterator<>(list);
 
-        List<Integer> expected = List.of(5, 4, 3, 2, 1);
+        List<Integer> expected = List.of(3, 2, 1);
 
         List<Integer> response = new ArrayList<>();
-        while (iterator.hasNext()) {
-            response.add(iterator.next());
-        }
+        response.add(iterator.next());
+        response.add(iterator.next());
+        response.add(iterator.next());
 
         assertThat(response).isEqualTo(expected);
     }

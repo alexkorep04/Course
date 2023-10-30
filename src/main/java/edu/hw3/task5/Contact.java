@@ -12,17 +12,11 @@ public class Contact {
             this.firstName = parts[0];
             this.lastName = parts[1];
         } else {
-            this.firstName = "";
-            this.lastName = fullName;
+            this.firstName = parts[0];
+            this.lastName = null;
         }
     }
 
-    public String getFullName() {
-        if (firstName.length() != 0) {
-            return firstName + " " + lastName;
-        }
-        return lastName;
-    }
 
     public String getLastName() {
         return lastName;
@@ -30,16 +24,6 @@ public class Contact {
 
     public String getFirstName() {
         return firstName;
-    }
-
-    @Override public String toString() {
-        return "Contact{"
-            + "firstName='"
-            + firstName
-            + '\''
-            + ", lastName='" + lastName
-            + '\''
-            + '}';
     }
 
     @Override public boolean equals(Object o) {
