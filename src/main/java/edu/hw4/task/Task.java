@@ -4,14 +4,13 @@ package edu.hw4.task;
 import edu.hw4.base.Animal;
 import edu.hw4.base.Sex;
 import edu.hw4.base.Type;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Task {
     public Task() {
@@ -30,17 +29,14 @@ public class Task {
     }
 
     public Map<Type, Integer> countAnimalsByType(List<Animal> animals) {
-        Map<Type, List<Animal>> typeListMap =  animals.stream().collect(Collectors.groupingBy(Animal::type));
-        Map<Type, Integer> map = new HashMap<>();
-        for (Map.Entry<Type, List<Animal>> entry: typeListMap.entrySet()) {
-            map.put(entry.getKey(), entry.getValue().size());
-        }
-        return map;
+        return animals.stream()
+            .collect(Collectors
+                .groupingBy(Animal::type, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
     }
 
     public Animal findAnimalWithLongName(List<Animal> animals) {
         return animals.stream()
-            .max((a1, a2) -> a1.name().length() - a2.name().length())
+            .max(Comparator.comparingInt(a -> a.name().length()))
             .orElse(null);
     }
 
@@ -111,20 +107,24 @@ public class Task {
     }
 
     public boolean areSpidersBiteMoreOftenThanDogs(List<Animal> animals) {
-        double cntSpiders = (double) animals.stream().filter(animal -> animal.type() == Type.SPIDER).count();
-        double cntDogs = (double) animals.stream().filter(animal -> animal.type() == Type.DOG).count();
-        double cntSpidersBite = (double) animals.stream()
+        long cntSpiders = animals.stream().filter(animal -> animal.type() == Type.SPIDER).count();
+        long cntDogs = animals.stream().filter(animal -> animal.type() == Type.DOG).count();
+        long cntSpidersBite = animals.stream()
             .filter(animal -> animal.bites() && animal.type() == Type.SPIDER)
             .count();
-        double cntDogsBite = (double) animals.stream()
+        long cntDogsBite = animals.stream()
             .filter(animal -> animal.bites() && animal.type() == Type.DOG).count();
-        return cntSpidersBite / cntSpiders > cntDogsBite / cntDogs;
+        double first = (double) cntSpidersBite / cntSpiders;
+        double second = (double) cntDogsBite / cntDogs;
+        return first > second;
     }
 
     public Animal getTheHeaviestFish(List<Animal> animals1, List<Animal> animals2) {
-        List<List<Animal>> allAnimals = Arrays.asList(animals1, animals2);
-        return allAnimals.stream().flatMap(List::stream).filter(animal -> animal.type() == Type.FISH)
-            .max(Comparator.comparingInt(Animal::weight)).get();
+        Stream<Animal> allAnimals = Stream.concat(animals1.stream(), animals2.stream());
+
+        return allAnimals.filter(animal -> animal.type() == Type.FISH)
+            .max(Comparator.comparingInt(Animal::weight))
+            .orElse(null);
     }
 
     public Map<String, Set<ValidationError>> getAnimalsWithErrors(List<Animal> animals) {
