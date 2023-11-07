@@ -10,66 +10,80 @@ import org.apache.logging.log4j.Logger;
 
 public class PrettyPrint {
     private final static Logger LOGGER = LogManager.getLogger();
+    private final char whiteRectangle = '\u25A0';
 
-    public void printMaze(Maze maze) {
-        LOGGER.info("Generated maze: ");
-        Coordinate start = null;
-        Coordinate end = null;
-        char whiteRectangle = '\u25A0';
+    private void changeTypeToSymbol(Cell cell, StringBuilder stringBuilder) {
+        if (cell.type() == Type.PASSAGE) {
+            stringBuilder.append(' ');
+        } else if (cell.type() == Type.WALL) {
+            stringBuilder.append(whiteRectangle);
+        } else if (cell.type() == Type.START) {
+            stringBuilder.append('S');
+        } else if (cell.type() == Type.END) {
+            stringBuilder.append('E');
+        } else {
+            stringBuilder.append('+');
+        }
+    }
+
+    private void fillGridWithSymbols(Maze maze) {
         StringBuilder stringBuilder;
         for (int i = 0; i < maze.getHeight(); i++) {
             stringBuilder = new StringBuilder();
             for (int j = 0; j < maze.getWidth(); j++) {
-                if (maze.getGrid()[i][j].type() == Type.PASSAGE) {
-                    stringBuilder.append(' ');
-                } else if (maze.getGrid()[i][j].type() == Type.WALL) {
-                    stringBuilder.append(whiteRectangle);
-                } else if (maze.getGrid()[i][j].type() == Type.START) {
-                    stringBuilder.append('S');
-                    start = maze.getGrid()[i][j].coordinate();
-                } else {
-                    stringBuilder.append('E');
-                    end = maze.getGrid()[i][j].coordinate();
-                }
+                changeTypeToSymbol(maze.getGrid()[i][j], stringBuilder);
             }
             LOGGER.info(stringBuilder.toString());
         }
     }
 
-    @SuppressWarnings("ParameterAssignment")
+    private Coordinate findStartPoint(Maze maze) {
+        Coordinate start = null;
+        for (int i = 0; i < maze.getHeight(); i++) {
+            for (int j = 0; j < maze.getWidth(); j++) {
+                if (maze.getGrid()[i][j].type() == Type.START) {
+                    start = new Coordinate(i, j);
+                }
+            }
+        }
+        return start;
+    }
+
+    private Coordinate findEndPoint(Maze maze) {
+        Coordinate end = null;
+        for (int i = 0; i < maze.getHeight(); i++) {
+            for (int j = 0; j < maze.getWidth(); j++) {
+                if (maze.getGrid()[i][j].type() == Type.END) {
+                    end = new Coordinate(i, j);
+                }
+            }
+        }
+        return end;
+    }
+
+    public void printMaze(Maze maze) {
+        LOGGER.info("Generated maze: ");
+        Coordinate start = findStartPoint(maze);
+        Coordinate end = findEndPoint(maze);
+        fillGridWithSymbols(maze);
+    }
+
+    private void markPath(List<Coordinate> path, Maze maze, Coordinate start, Coordinate end) {
+        for (Coordinate point : path) {
+            if (!((point.row() == start.row() && point.col() == start.col())
+                || (point.row() == end.row() && point.col() == end.col()))) {
+                maze.getGrid()[point.row()][point.col()] = new Cell(point, Type.PATH);
+            }
+        }
+    }
+
     public void printPath(Maze maze, List<Coordinate> path, Coordinate start, Coordinate end) {
-        LOGGER.info("Maze with path: ");
-        char whiteRectangle = '\u25A0';
-        StringBuilder stringBuilder;
         if (path != null) {
-            LOGGER.info("Путь найден:");
-            for (Coordinate point : path) {
-                if (!((point.row() == start.row() && point.col() == start.col())
-                    || (point.row() == end.row() && point.col() == end.col()))) {
-                    maze.getGrid()[point.row()][point.col()] = new Cell(point, Type.PATH);
-                }
-            }
-            for (int i = 0; i < maze.getHeight(); i++) {
-                stringBuilder = new StringBuilder();
-                for (int j = 0; j < maze.getWidth(); j++) {
-                    if (maze.getGrid()[i][j].type() == Type.PASSAGE) {
-                        stringBuilder.append(' ');
-                    } else if (maze.getGrid()[i][j].type() == Type.WALL) {
-                        stringBuilder.append(whiteRectangle);
-                    } else if (maze.getGrid()[i][j].type() == Type.START) {
-                        stringBuilder.append('S');
-                        start = maze.getGrid()[i][j].coordinate();
-                    } else if (maze.getGrid()[i][j].type() == Type.END) {
-                        stringBuilder.append('E');
-                        end = maze.getGrid()[i][j].coordinate();
-                    } else {
-                        stringBuilder.append('+');
-                    }
-                }
-                LOGGER.info(stringBuilder.toString());
-            }
+            LOGGER.info("Path found:");
+            markPath(path, maze, start, end);
+            fillGridWithSymbols(maze);
         } else {
-            LOGGER.info("Путь не найден.");
+            LOGGER.info("Path not found.");
         }
     }
 }

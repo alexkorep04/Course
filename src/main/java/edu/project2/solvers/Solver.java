@@ -8,7 +8,7 @@ import java.util.List;
 public interface Solver {
     List<Coordinate> findPath(Maze maze, Coordinate start, Coordinate end);
 
-    default LinkedList<Coordinate> constructPath(int[][] parentX, int[][] parentY, Coordinate start, Coordinate end) {
+    default List<Coordinate> constructPath(int[][] parentX, int[][] parentY, Coordinate start, Coordinate end) {
         LinkedList<Coordinate> path = new LinkedList<>();
         int x = end.row();
         int y = end.col();

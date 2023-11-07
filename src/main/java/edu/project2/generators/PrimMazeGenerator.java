@@ -55,6 +55,36 @@ public class PrimMazeGenerator implements Generator {
         } while (true);
     }
 
+    private boolean isValid(int newRow, int newCol, Cell[][] cells) {
+        return newRow >= 0 && newRow < row
+            && newCol >= 0 && newCol < col
+            && cells[newRow][newCol].type() == Type.WALL;
+    }
+
+    @SuppressWarnings("MagicNumber")
+
+    private void createWallsAndPassages(List<int[]> walls, Cell[][] cells) {
+        while (!walls.isEmpty()) {
+            int randomWallIndex = random.nextInt(walls.size());
+            int[] wall = walls.get(randomWallIndex);
+            walls.remove(randomWallIndex);
+            int wallRow = wall[0];
+            int wallCol = wall[1];
+            List<Integer> directions = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+            Collections.shuffle(directions, random);
+            for (int i = 0; i < 4; i++) {
+                int newRow = wallRow + 2 * dx[i];
+                int newCol = wallCol + 2 * dy[i];
+                if (isValid(newRow, newCol, cells)) {
+                    cells[newRow][newCol] = new Cell(new Coordinate(newRow, newCol), Type.PASSAGE);
+                    cells[wallRow + dx[i]][wallCol + dy[i]]
+                        = new Cell(new Coordinate(wallRow + dx[i], wallCol + dy[i]), Type.PASSAGE);
+                    walls.add(new int[]{newRow, newCol});
+                }
+            }
+        }
+    }
+
     @SuppressWarnings("MagicNumber")
     @Override
     public Maze generateMaze() {
@@ -65,27 +95,7 @@ public class PrimMazeGenerator implements Generator {
         Cell startCell = getStartPoint(cells);
         List<int[]> walls = new ArrayList<>();
         walls.add(new int[]{startCell.coordinate().row(), startCell.coordinate().col()});
-        while (!walls.isEmpty()) {
-            int randomWallIndex = random.nextInt(walls.size());
-            int[] wall = walls.get(randomWallIndex);
-            walls.remove(randomWallIndex);
-            int wallRow = wall[0];
-            int wallCol = wall[1];
-            List<Integer> directions = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
-            Collections.shuffle(directions, random);
-            for (int dir : directions) {
-                int newRow = wallRow + 2 * dx[dir];
-                int newCol = wallCol + 2 * dy[dir];
-                if (newRow >= 0 && newRow < row
-                    && newCol >= 0 && newCol < col
-                    && cells[newRow][newCol].type() == Type.WALL) {
-                    cells[newRow][newCol] = new Cell(new Coordinate(newRow, newCol), Type.PASSAGE);
-                    cells[wallRow + dx[dir]][wallCol + dy[dir]]
-                        = new Cell(new Coordinate(wallRow + dx[dir], wallCol + dy[dir]), Type.PASSAGE);
-                    walls.add(new int[]{newRow, newCol});
-                }
-            }
-        }
+        createWallsAndPassages(walls, cells);
         markEndPoint(cells, startCell);
         return new Maze(row, col, cells);
     }

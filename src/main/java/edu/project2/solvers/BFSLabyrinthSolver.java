@@ -5,6 +5,7 @@ import edu.project2.Coordinate;
 import edu.project2.Maze;
 import edu.project2.Type;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class BFSLabyrinthSolver implements Solver {
@@ -15,7 +16,7 @@ public class BFSLabyrinthSolver implements Solver {
     }
 
     @Override
-    public LinkedList<Coordinate> findPath(Maze maze1, Coordinate start, Coordinate end) {
+    public List<Coordinate> findPath(Maze maze1, Coordinate start, Coordinate end) {
         Cell[][] maze = maze1.getGrid();
         int m = maze1.getWidth();
         int n = maze1.getHeight();
