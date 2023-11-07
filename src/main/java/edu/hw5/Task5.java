@@ -8,7 +8,7 @@ public class Task5 {
     }
 
     public static boolean isCorrectNumber(String number) {
-        Pattern pattern = Pattern.compile("^[АВЕКМНОРСТУХ]\\d{3}[АВЕКМНОРСТУХ]{2}\\d{3}$");
+        Pattern pattern = Pattern.compile("^[АВЕКМНОРСТУХ]\\d{3}[АВЕКМНОРСТУХ]{2}\\d{2,3}$");
         Matcher matcher = pattern.matcher(number);
         return matcher.find();
     }
