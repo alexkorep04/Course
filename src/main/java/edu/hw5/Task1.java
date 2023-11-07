@@ -4,6 +4,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Task1 {
+    private Task1() {
+    }
+
+    @SuppressWarnings("MagicNumber")
+
     public static String countDifferenceBetweenTime(String[] input) {
         long second = 0;
         for (String s: input) {
@@ -19,10 +24,7 @@ public class Task1 {
             second += Duration.between(start, end).getSeconds();
         }
         long middleSeconds = second / input.length;
-        return Long.toString(middleSeconds / 3600) + "h " + Long.toString((middleSeconds - middleSeconds / 3600 * 3600) / 60) + "m";
-    }
-
-    public static void main(String[] args) {
-        System.out.println(countDifferenceBetweenTime(new String[]{"2022-04-01, 21:30 - 2022-04-02, 01:20", "2022-03-12, 20:20 - 2022-03-12, 23:50"}));
+        return Long.toString(middleSeconds / 3600) + "h " + Long
+            .toString((middleSeconds - middleSeconds / 3600 * 3600) / 60) + "m";
     }
 }

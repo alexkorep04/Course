@@ -6,6 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Task3 {
+    private Task3() {
+    }
+
+    @SuppressWarnings("MagicNumber")
+
     public static Optional<LocalDate> parseDate(String string) {
         Pattern pattern1 = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
         Pattern pattern2 = Pattern.compile("^\\d{4}-\\d{2}-\\d$");
@@ -27,43 +32,38 @@ public class Task3 {
         Matcher matcher9 = pattern9.matcher(string);
         LocalDate date = null;
         LocalDate now = LocalDate.now();
-        if(matcher1.find() || matcher2.find()) {
+        if (matcher1.find() || matcher2.find()) {
             String[] parts = string.split("-");
             int year = Integer.parseInt(parts[0]);
             int month = Integer.parseInt(parts[1]);
             int day = Integer.parseInt(parts[2]);
             date = LocalDate.of(year, month, day);
-        } else if(matcher3.find()) {
+        } else if (matcher3.find()) {
             String[] parts = string.split("/");
             int year = Integer.parseInt(parts[2]);
             int month = Integer.parseInt(parts[1]);
             int day = Integer.parseInt(parts[0]);
             date = LocalDate.of(year, month, day);
-        }
-        else if(matcher4.find()) {
+        } else if (matcher4.find()) {
             String[] parts = string.split("/");
-            int year = now.getYear() - now.getYear()%100 + Integer.parseInt(parts[2]);
+            int year = now.getYear() - now.getYear() % 100 + Integer.parseInt(parts[2]);
             int month = Integer.parseInt(parts[1]);
             int day = Integer.parseInt(parts[0]);
             date = LocalDate.of(year, month, day);
-        }
-        else if(matcher5.find() ) {
+        } else if (matcher5.find()) {
             date = LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth());
             date = date.plusDays(1);
-        }
-        else if(matcher6.find()) {
+        } else if (matcher6.find()) {
             date = LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth());
-        }
-        else if(matcher7.find() || matcher8.find()) {
+        } else if (matcher7.find() || matcher8.find()) {
             date = LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth());
             date = date.minusDays(1);
-        }
-        else if(matcher9.find()) {
+        } else if (matcher9.find()) {
             String[] parts = string.split(" ");
             date = LocalDate.of(now.getYear(), now.getMonth(), now.getDayOfMonth());
             date = date.minusDays(Integer.parseInt(parts[0]));
         }
-        if(date == null) {
+        if (date == null) {
             return Optional.empty();
         }
         return Optional.of(date);

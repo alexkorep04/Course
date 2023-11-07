@@ -7,16 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Task2 {
+    private Task2() {
+    }
+
+    @SuppressWarnings("MagicNumber")
+
     public static List<LocalDate> getAllFridaysThe13ByYear(int year) {
         List<LocalDate> fridays = new ArrayList<>();
-        for(int month = 1; month <= 12; month++) {
-            LocalDate localDate = LocalDate.of(year,month, 13);
-            if(localDate.getDayOfWeek() == DayOfWeek.FRIDAY) {
+        for (int month = 1; month <= 12; month++) {
+            LocalDate localDate = LocalDate.of(year, month, 13);
+            if (localDate.getDayOfWeek() == DayOfWeek.FRIDAY) {
                 fridays.add(localDate);
             }
         }
         return fridays;
     }
+
+    @SuppressWarnings("MagicNumber")
+
     public static LocalDate findNextFridayThe13th(LocalDate date) {
         LocalDate nextFridayThe13th = date;
         do {
