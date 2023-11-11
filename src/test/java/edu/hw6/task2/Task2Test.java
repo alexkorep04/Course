@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task2Test {
     FileCloning fileCloning;
-    private static final String DIRECTORY = ".\\src\\test\\java\\edu\\hw6\\task2\\";
+    private static final String DIRECTORY = "./src/test/java/edu/hw6/task2/";
     @BeforeEach
     public void createObject() {
         fileCloning = new FileCloning();
@@ -36,8 +36,10 @@ public class Task2Test {
         Path original = Path.of(DIRECTORY + "test.txt");
         Path firstCopy = Path.of(DIRECTORY + "test — копия.txt");
         Path secondCopy = Path.of(DIRECTORY + "test — копия (2).txt");
+        Files.deleteIfExists(firstCopy);
         Files.deleteIfExists(secondCopy);
 
+        fileCloning.cloneFile(original);
         fileCloning.cloneFile(original);
         boolean response1 = Files.exists(secondCopy);
         boolean response2 = Files.exists(firstCopy);
@@ -55,9 +57,14 @@ public class Task2Test {
         Path firstCopy = Path.of(DIRECTORY + "test — копия.txt");
         Path secondCopy = Path.of(DIRECTORY + "test — копия (2).txt");
         Path thirdCopy = Path.of(DIRECTORY + "test — копия (3).txt");
+        Files.deleteIfExists(firstCopy);
+        Files.deleteIfExists(secondCopy);
         Files.deleteIfExists(thirdCopy);
 
         fileCloning.cloneFile(original);
+        fileCloning.cloneFile(original);
+        fileCloning.cloneFile(original);
+
         boolean response1 = Files.exists(thirdCopy);
         boolean response2 = Files.exists(secondCopy);
         boolean response3 = Files.exists(firstCopy);

@@ -17,7 +17,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task1Test {
-    private static final String DIRECTORY = ".\\src\\test\\java\\edu\\hw6\\task1\\";
+    private static final String DIRECTORY = "./src/test/java/edu/hw6/task1/";
     DiskMap diskMap;
     @BeforeEach
     public void createObject() throws IOException {

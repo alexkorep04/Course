@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task4Test {
     PrintComposition printComposition;
-    private static final String DIRECTORY = ".\\src\\test\\java\\edu\\hw6\\task4\\";
+    private static final String DIRECTORY = "./src/test/java/edu/hw6/task4/";
     @BeforeEach
     public void createObject() {
         printComposition = new PrintComposition();

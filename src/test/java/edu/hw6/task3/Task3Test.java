@@ -22,7 +22,7 @@ import static edu.hw6.FilesFilters.regexContains;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task3Test {
-    private static final String DIRECTORY = ".\\src\\test\\java\\edu\\hw6\\task3\\";
+    private static final String DIRECTORY = "./src/test/java/edu/hw6/task3/";
     @Test
     @DisplayName("Test size")
     public void testSize() throws IOException {
