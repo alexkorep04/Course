@@ -11,7 +11,6 @@ public class Task2 {
     }
 
     @SuppressWarnings("MagicNumber")
-
     public static List<LocalDate> getAllFridaysThe13ByYear(int year) {
         List<LocalDate> fridays = new ArrayList<>();
         for (int month = 1; month <= 12; month++) {
@@ -24,7 +23,6 @@ public class Task2 {
     }
 
     @SuppressWarnings("MagicNumber")
-
     public static LocalDate findNextFridayThe13th(LocalDate date) {
         LocalDate nextFridayThe13th = date;
         do {

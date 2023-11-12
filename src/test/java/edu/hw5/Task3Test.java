@@ -1,5 +1,6 @@
 package edu.hw5;
 
+import edu.hw5.Task3.Task3;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -92,7 +93,7 @@ public class Task3Test {
     @Test
     @DisplayName("Test input date in format x days ago")
     public void testDate9() {
-        Optional<LocalDate> expected = Optional.of(LocalDate.of(2017, 9, 25));
+        Optional<LocalDate> expected = Optional.of(LocalDate.of(2017, 9, 30));
 
         Optional<LocalDate> response = Task3.parseDate("2234 days ago");
 

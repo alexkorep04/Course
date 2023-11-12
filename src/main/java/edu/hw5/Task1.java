@@ -24,7 +24,9 @@ public class Task1 {
             second += Duration.between(start, end).getSeconds();
         }
         long middleSeconds = second / input.length;
-        return Long.toString(middleSeconds / 3600) + "h " + Long
-            .toString((middleSeconds - middleSeconds / 3600 * 3600) / 60) + "m";
+        long hours = middleSeconds / 3600;
+        long minutes = (middleSeconds - hours * 3600) / 60;
+        return Long.toString(hours) + "h " + Long
+            .toString(minutes) + "m";
     }
 }
