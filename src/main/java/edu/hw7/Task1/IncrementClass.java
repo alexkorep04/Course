@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class IncrementClass {
     private static AtomicInteger counter = new AtomicInteger(0);
+
     public AtomicInteger incrementCounter() {
         Thread thread1 = new Thread(new ThreadClass(counter));
         Thread thread2 = new Thread(new ThreadClass(counter));

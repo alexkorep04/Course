@@ -1,7 +1,6 @@
 package edu.hw7;
 
 import edu.hw7.Task2.FactorialCalculator;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,6 +18,7 @@ public class Task2Test {
 
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test calculating factorial on not correct data")
     public void testFactorialOnUncorrectData() {
