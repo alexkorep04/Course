@@ -29,11 +29,10 @@ public class HackerNews {
             for (int i = 0; i < arr.length; i++) {
                 answer[i] = Long.parseLong(arr[i]);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+        httpClient.close();
         return answer;
     }
 
@@ -53,6 +52,7 @@ public class HackerNews {
             Pattern pattern = Pattern.compile("\"title\":\"(.*?)\"");
             Matcher matcher = pattern.matcher(responseBody);
             if (matcher.find()) {
+                httpClient.close();
                 return matcher.group(1);
             }
         } catch (IOException e) {
@@ -60,6 +60,7 @@ public class HackerNews {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        httpClient.close();
         return null;
     }
 }

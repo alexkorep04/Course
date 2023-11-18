@@ -46,14 +46,12 @@ public class PortsCheck {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             serverSocket.setReuseAddress(true);
         } catch (IOException e) {
-            answer = "TCP";
-            return answer;
+            return "TCP";
         }
         try (DatagramSocket datagramSocket = new DatagramSocket(port)) {
             datagramSocket.setReuseAddress(true);
         } catch (IOException e) {
-            answer = "UDP";
-            return answer;
+            return "UDP";
         }
         return null;
     }

@@ -19,12 +19,17 @@ import org.jetbrains.annotations.Nullable;
 public class DiskMap implements Map<String, String> {
     private String filePath;
     private final static Logger LOGGER = LogManager.getLogger();
+    private Map<String, String> cachedData;
 
     public DiskMap(String filePath) {
         this.filePath = filePath;
+        cachedData = new LinkedHashMap<>();
     }
 
     private Map<String, String> readDataFromFile() {
+        if(!cachedData.isEmpty()) {
+            return cachedData;
+        }
         Map<String, String> data = new LinkedHashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -37,12 +42,14 @@ public class DiskMap implements Map<String, String> {
         } catch (IOException exception) {
             LOGGER.info(exception.getMessage());
         }
+        cachedData = new LinkedHashMap<>(data);
         return data;
     }
 
     private void writeDataToFile(Map<String, String> data) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Map.Entry<String, String> entry: data.entrySet()) {
+                cachedData.clear();
                 writer.write(entry.getKey() + ":" + entry.getValue());
                 writer.newLine();
             }
@@ -54,6 +61,7 @@ public class DiskMap implements Map<String, String> {
     private void addDataToFile(String key, String value) {
         try (RandomAccessFile randomAccessFile = new RandomAccessFile(filePath, "rw")) {
             randomAccessFile.seek(randomAccessFile.length());
+            cachedData.clear();
             if (randomAccessFile.length() != 0) {
                 randomAccessFile.writeBytes("\n");
             }

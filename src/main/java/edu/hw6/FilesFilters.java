@@ -22,18 +22,18 @@ public class FilesFilters {
             };
     }
 
-    public static AbstractFilter globMatches(String string) {
+    public static AbstractFilter globMatches(String glob) {
         return (Path path) -> {
             String reg = "\\.";
-            String neededFileExtension = string.split(reg)[1];
+            String neededFileExtension = glob.split(reg)[1];
             String realFileExtension = new File(path.toString()).getName().split(reg)[1];
             return realFileExtension.equals(neededFileExtension);
         };
     }
 
-    public static AbstractFilter regexContains(String string) {
+    public static AbstractFilter regexContains(String regex) {
         return (Path path) -> {
-            Pattern pattern = Pattern.compile(string);
+            Pattern pattern = Pattern.compile(regex);
             File file = new File(String.valueOf(path));
             Matcher matcher = pattern.matcher(file.getName());
             return matcher.find();

@@ -33,10 +33,7 @@ public class Task1Test {
         List<String> expected = List.of("hello:world", "goodbye:world");
         List<String> response = new ArrayList<>();
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(DIRECTORY + "test.txt"))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                response.add(line);
-            }
+            response = bufferedReader.lines().toList();
         }
 
         assertThat(expected.size()).isEqualTo(response.size());
