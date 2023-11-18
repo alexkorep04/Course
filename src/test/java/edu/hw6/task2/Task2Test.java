@@ -12,10 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Task2Test {
     FileCloning fileCloning;
     private static final String DIRECTORY = "./src/test/java/edu/hw6/task2/";
+
     @BeforeEach
     public void createObject() {
         fileCloning = new FileCloning();
     }
+
     @Test
     @DisplayName("Test creating first copy of test.txt")
     public void createFirstCopy() throws IOException {
@@ -30,6 +32,7 @@ public class Task2Test {
         assertThat(response1).isTrue();
         assertThat(response2).isTrue();
     }
+
     @Test
     @DisplayName("Test creating second copy of test.txt")
     public void createSecondCopy() throws IOException {
@@ -50,6 +53,7 @@ public class Task2Test {
         assertThat(response3).isTrue();
 
     }
+
     @Test
     @DisplayName("Test creating third copy of test.txt")
     public void createThirdCopy() throws IOException {

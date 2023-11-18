@@ -23,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task3Test {
     private static final String DIRECTORY = "./src/test/java/edu/hw6/task3/";
+
     @Test
     @DisplayName("Test size")
     public void testSize() throws IOException {
@@ -41,6 +42,7 @@ public class Task3Test {
         assertThat(expected.size()).isEqualTo(response.size());
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test writable")
     public void testWritable() throws IOException {
@@ -53,12 +55,13 @@ public class Task3Test {
             );
         }
 
-        List<String> expected = List.of("Task3Test.java", "test1.txt", "test2.txt","test3.txt");
+        List<String> expected = List.of("Task3Test.java", "test1.txt", "test2.txt", "test3.txt");
         Collections.sort(response);
 
         assertThat(expected.size()).isEqualTo(response.size());
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test glob matches")
     public void tesGlobMatches() throws IOException {
@@ -71,12 +74,13 @@ public class Task3Test {
             );
         }
 
-        List<String> expected = List.of("test1.txt", "test2.txt","test3.txt");
+        List<String> expected = List.of("test1.txt", "test2.txt", "test3.txt");
         Collections.sort(response);
 
         assertThat(expected.size()).isEqualTo(response.size());
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test magicNumber matches")
     public void tesMagicNumber() throws IOException {
@@ -97,6 +101,7 @@ public class Task3Test {
         assertThat(expected.size()).isEqualTo(response.size());
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test regex contains matches")
     public void testRegex() throws IOException {
@@ -109,12 +114,13 @@ public class Task3Test {
             );
         }
 
-        List<String> expected = List.of("test1.txt", "test2.txt","test3.txt");
+        List<String> expected = List.of("test1.txt", "test2.txt", "test3.txt");
         Collections.sort(response);
 
         assertThat(expected.size()).isEqualTo(response.size());
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test all")
     public void testAll() throws IOException {

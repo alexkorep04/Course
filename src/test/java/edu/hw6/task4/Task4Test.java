@@ -14,10 +14,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Task4Test {
     PrintComposition printComposition;
     private static final String DIRECTORY = "./src/test/java/edu/hw6/task4/";
+
     @BeforeEach
     public void createObject() {
         printComposition = new PrintComposition();
     }
+
     @Test
     @DisplayName("Test writing to file")
     public void testWriting() throws IOException {
@@ -26,7 +28,7 @@ public class Task4Test {
 
         String response;
 
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(DIRECTORY + "test.txt"))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(DIRECTORY + "test.txt"))) {
             response = bufferedReader.readLine();
         }
 

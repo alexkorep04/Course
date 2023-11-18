@@ -19,11 +19,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Task1Test {
     private static final String DIRECTORY = "./src/test/java/edu/hw6/task1/";
     DiskMap diskMap;
+
     @BeforeEach
     public void createObject() throws IOException {
-        Files.deleteIfExists(Path.of(DIRECTORY+"test.txt"));
+        Files.deleteIfExists(Path.of(DIRECTORY + "test.txt"));
         diskMap = new DiskMap(DIRECTORY + "test.txt");
     }
+
     @Test
     @DisplayName("Test put method")
     public void testPut() throws IOException {
@@ -32,13 +34,14 @@ public class Task1Test {
 
         List<String> expected = List.of("hello:world", "goodbye:world");
         List<String> response = new ArrayList<>();
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(DIRECTORY + "test.txt"))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(DIRECTORY + "test.txt"))) {
             response = bufferedReader.lines().toList();
         }
 
         assertThat(expected.size()).isEqualTo(response.size());
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test get method")
     public void testGet() throws IOException {
@@ -62,7 +65,7 @@ public class Task1Test {
         diskMap.remove("goodbye");
         List<String> expected = List.of("hello:world", "123:12");
         List<String> response = new ArrayList<>();
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(DIRECTORY + "test.txt"))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(DIRECTORY + "test.txt"))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 response.add(line);
@@ -72,6 +75,7 @@ public class Task1Test {
         assertThat(expected.size()).isEqualTo(response.size());
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test size method")
     public void testSize() throws IOException {
@@ -84,6 +88,7 @@ public class Task1Test {
 
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test isEmpty method")
     public void testIsEmpty() throws IOException {
@@ -93,6 +98,7 @@ public class Task1Test {
 
         assertThat(response).isFalse();
     }
+
     @Test
     @DisplayName("Test containKey method")
     public void testContainKey() throws IOException {
@@ -102,6 +108,7 @@ public class Task1Test {
 
         assertThat(response).isTrue();
     }
+
     @Test
     @DisplayName("Test contain value method")
     public void testContainValue() throws IOException {
@@ -111,6 +118,7 @@ public class Task1Test {
 
         assertThat(response).isTrue();
     }
+
     @Test
     @DisplayName("Test clear method")
     public void testClear() throws IOException {
@@ -121,6 +129,7 @@ public class Task1Test {
 
         assertThat(response).isTrue();
     }
+
     @Test
     @DisplayName("Test put all method")
     public void testPutAll() throws IOException {
@@ -132,7 +141,7 @@ public class Task1Test {
 
         List<String> expected = List.of("4:1", "hello:world", "goodbye:world");
         List<String> response = new ArrayList<>();
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(DIRECTORY + "test.txt"))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(DIRECTORY + "test.txt"))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 response.add(line);
