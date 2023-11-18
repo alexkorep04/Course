@@ -17,7 +17,7 @@ public class FileSourceTest {
     @Test
     @DisplayName("Test getting logs from file")
     public void testGettingLogsFromFile() {
-        int expected = 6;
+        int expected = 51462;
         List<String> strings = fileSource.getLogsFromFile("log.txt");
 
         int response = strings.size();

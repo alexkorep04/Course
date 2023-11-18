@@ -42,7 +42,7 @@ public class MostPopularIPAddressesTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("IP addresses", List.of("IP", "Amount"), List.of("20.20.1.120:2", "191.20.1.120:1", "255.20.1.120:1"));
+        Table expected = new Table("IP addresses", List.of("IP", "Amount"), List.of("20.20.1.120!!!2", "191.20.1.120!!!1", "255.20.1.120!!!1"));
 
         Table response = mostPopularIPAddresses.collectInformationAboutMostPopularIPAddresses(
             "2010-01-01",
@@ -68,7 +68,7 @@ public class MostPopularIPAddressesTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("IP addresses", List.of("IP", "Amount"), List.of("191.20.1.120:1","255.20.1.120:1", "20.20.1.120:1"));
+        Table expected = new Table("IP addresses", List.of("IP", "Amount"), List.of("191.20.1.120!!!1","255.20.1.120!!!1", "20.20.1.120!!!1"));
 
         Table response = mostPopularIPAddresses.collectInformationAboutMostPopularIPAddresses(
             "2010-01-01",

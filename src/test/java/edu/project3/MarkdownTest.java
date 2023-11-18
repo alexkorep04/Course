@@ -21,11 +21,11 @@ public class MarkdownTest {
     @Test
     @DisplayName("Testing printing markdown")
     public void testPrintingMarkdown() {
-        Table table = new Table("Dates", List.of("Date", "Amount"), List.of("2013-09-21:2", "2017-09-21:1", "2019-09-21:1"));
+        Table table = new Table("Dates", List.of("Date", "Amount"), List.of("2013-09-21!!!2", "2017-09-21!!!1", "2019-09-21!!!1"));
 
         String expected = new String(
             "### Dates\n" +
-            "|Date       Amount \n" +
+            "|Date       |Amount |\n" +
             "|:---------:|:-----:|\n" +
             "|2013-09-21 |2      |\n" +
             "|2017-09-21 |1      |\n" +

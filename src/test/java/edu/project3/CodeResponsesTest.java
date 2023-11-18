@@ -44,7 +44,7 @@ public class CodeResponsesTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Response codes", List.of("Code", "Name", "Amount"), List.of("400:Bad Request:1", "201:Created:2", "200:OK:1"));
+        Table expected = new Table("Response codes", List.of("Code", "Name", "Amount"), List.of("201!!!Created!!!2", "200!!!OK!!!1", "400!!!Bad Request!!!1"));
 
         Table response = codeResponses.collectResponseCodes(
             "2010-01-01",
@@ -54,7 +54,7 @@ public class CodeResponsesTest {
         assertThat(expected).isEqualTo(response);
     }
     @Test
-    @DisplayName("Test returning of code responses where all logs fits dates")
+    @DisplayName("Test returning of code responses where some logs not fits dates")
     public void testReturningOfCodeResponsesWhereSomeLogsNotFitDates() {
         Log log1 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2009:09:45:21 +0001", FORMATTER)
             , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
@@ -70,7 +70,7 @@ public class CodeResponsesTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Response codes", List.of("Code", "Name", "Amount"), List.of("201:Created:2"));
+        Table expected = new Table("Response codes", List.of("Code", "Name", "Amount"), List.of("201!!!Created!!!2"));
 
         Table response = codeResponses.collectResponseCodes(
             "2010-01-01",

@@ -43,7 +43,7 @@ public class MostPopularResourcesTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Resources", List.of("Resource", "Amount"), List.of("/downloads/product2:2", "/downloads/product1:1", "/downloads/product3:1"));
+        Table expected = new Table("Resources", List.of("Resource", "Amount"), List.of("/downloads/product2!!!2", "/downloads/product1!!!1", "/downloads/product3!!!1"));
 
         Table response = mostPopularResources.collectInformationAboutMostPopularResources(
             "2010-01-01",
@@ -69,7 +69,7 @@ public class MostPopularResourcesTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Resources", List.of("Resource", "Amount"), List.of("/downloads/product1:1", "/downloads/product3:1", "/downloads/product2:1"));
+        Table expected = new Table("Resources", List.of("Resource", "Amount"), List.of("/downloads/product1!!!1", "/downloads/product3!!!1", "/downloads/product2!!!1"));
 
         Table response = mostPopularResources.collectInformationAboutMostPopularResources(
             "2010-01-01",

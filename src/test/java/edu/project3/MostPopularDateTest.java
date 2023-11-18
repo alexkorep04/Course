@@ -42,7 +42,7 @@ public class MostPopularDateTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Dates", List.of("Date", "Amount"), List.of("2013-09-21:2", "2017-09-21:1", "2019-09-21:1"));
+        Table expected = new Table("Dates", List.of("Date", "Amount"), List.of("2013-09-21!!!2", "2017-09-21!!!1", "2019-09-21!!!1"));
 
         Table response = mostPopularDate.collectInformationAboutMostPopularDate(
             "2010-01-01",
@@ -68,7 +68,7 @@ public class MostPopularDateTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Dates", List.of("Date", "Amount"), List.of("2017-09-21:2", "2019-09-21:1"));
+        Table expected = new Table("Dates", List.of("Date", "Amount"), List.of("2017-09-21!!!2", "2019-09-21!!!1"));
 
         Table response = mostPopularDate.collectInformationAboutMostPopularDate(
             "2010-01-01",
