@@ -27,7 +27,7 @@ public class DiskMap implements Map<String, String> {
     }
 
     private Map<String, String> readDataFromFile() {
-        if(!cachedData.isEmpty()) {
+        if (!cachedData.isEmpty()) {
             return cachedData;
         }
         Map<String, String> data = new LinkedHashMap<>();
