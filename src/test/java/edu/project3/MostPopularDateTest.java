@@ -17,14 +17,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MostPopularDateTest {
     MostPopularDate mostPopularDate;
+
     @BeforeEach
     public void createObject() {
         mostPopularDate = new MostPopularDate();
     }
+
     private static final DateTimeFormatter FORMATTER =
         DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH);
-    private static final DateTimeFormatter FORMATTER2 =
-        DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+
     @Test
     @DisplayName("Testing returning most popular dates")
     public void testDates() {
@@ -42,15 +43,20 @@ public class MostPopularDateTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Dates", List.of("Date", "Amount"), List.of("2013-09-21!!!2", "2017-09-21!!!1", "2019-09-21!!!1"));
+        Table expected = new Table("Dates",
+            List.of("Date", "Amount"),
+            List.of("2013-09-21!!!2", "2017-09-21!!!1", "2019-09-21!!!1")
+        );
 
         Table response = mostPopularDate.collectInformationAboutMostPopularDate(
             "2010-01-01",
             "2020-01-01",
-            logs);
+            logs
+        );
 
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Testing returning most popular IP")
     public void testIDatesWhereSomeLogsDoNotFit() {
@@ -73,7 +79,8 @@ public class MostPopularDateTest {
         Table response = mostPopularDate.collectInformationAboutMostPopularDate(
             "2010-01-01",
             "2020-01-01",
-            logs);
+            logs
+        );
 
         assertThat(expected).isEqualTo(response);
     }

@@ -20,11 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class Launcher {
-    private final static Logger LOGGER = LogManager.getLogger();
     private List<Argument> arguments;
     private FormatType formatType;
     private String from;
@@ -60,44 +57,43 @@ public class Launcher {
         List<String> arrayList = new ArrayList<>();
         String[] paths = arguments.get(0).dimension().split(" ");
         for (String path : paths) {
-            arrayList.addAll(path.startsWith("http") ? new URLSource().getLogsByURL(path)
-                : new FileSource().getLogsFromFile(path));
+            if (path.startsWith("http")) {
+                arrayList.addAll(new URLSource().getLogsByURL(path));
+            } else {
+                arrayList.addAll(new FileSource().getLogsFromFile(path));
+            }
         }
         if (formatType.equals(FormatType.ADOC)) {
             printer = new Adoc();
         } else {
             printer = new Markdown();
         }
-        Table table1 = baseInformation.collectBaseInfo(from,
+        Table baseInfo = baseInformation.collectBaseInfo(from,
             to,
             Arrays.stream(paths).toList(),
             arrayList.stream().map(LogParser::parseLog).collect(
                 Collectors.toList())
         );
-        System.out.println(printer.printTable(table1));
-        Table table2 = codeResponses.collectResponseCodes(from,
-            to,
+        System.out.println(printer.printTable(baseInfo));
+        Table codeInfo = codeResponses.collectResponseCodes(from, to,
             arrayList.stream().map(LogParser::parseLog).collect(
                 Collectors.toList())
         );
-        System.out.println(printer.printTable(table2));
-        Table table3 = mostPopularResources.collectInformationAboutMostPopularResources(from,
-            to,
+        System.out.println(printer.printTable(codeInfo));
+        Table resourcesInfo = mostPopularResources.collectInformationAboutMostPopularResources(from, to,
             arrayList.stream().map(LogParser::parseLog).collect(
                 Collectors.toList())
         );
-        System.out.println(printer.printTable(table3));
-        Table table4 = mostPopularIPAddresses.collectInformationAboutMostPopularIPAddresses(from,
-            to,
+        System.out.println(printer.printTable(resourcesInfo));
+        Table ipInfo = mostPopularIPAddresses.collectInformationAboutMostPopularIPAddresses(from, to,
             arrayList.stream().map(LogParser::parseLog).collect(
                 Collectors.toList())
         );
-        System.out.println(printer.printTable(table4));
-        Table table5 = mostPopularDate.collectInformationAboutMostPopularDate(from,
-            to,
+        System.out.println(printer.printTable(ipInfo));
+        Table dateInfo = mostPopularDate.collectInformationAboutMostPopularDate(from, to,
             arrayList.stream().map(LogParser::parseLog).collect(
                 Collectors.toList())
         );
-        System.out.println(printer.printTable(table5));
+        System.out.println(printer.printTable(dateInfo));
     }
 }

@@ -18,14 +18,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class MostPopularResourcesTest {
     MostPopularResources mostPopularResources;
+
     @BeforeEach
     public void createObject() {
         mostPopularResources = new MostPopularResources();
     }
+
     private static final DateTimeFormatter FORMATTER =
         DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH);
-    private static final DateTimeFormatter FORMATTER2 =
-        DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+
     @Test
     @DisplayName("Testing returning most popular resources")
     public void testResources() {
@@ -43,15 +44,20 @@ public class MostPopularResourcesTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Resources", List.of("Resource", "Amount"), List.of("/downloads/product2!!!2", "/downloads/product1!!!1", "/downloads/product3!!!1"));
+        Table expected = new Table("Resources",
+            List.of("Resource", "Amount"),
+            List.of("/downloads/product2!!!2", "/downloads/product1!!!1", "/downloads/product3!!!1")
+        );
 
         Table response = mostPopularResources.collectInformationAboutMostPopularResources(
             "2010-01-01",
             "2020-01-01",
-            logs);
+            logs
+        );
 
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Testing returning most popular resources where not all logs fits")
     public void testResourcesWhereNotAllDatesFits() {
@@ -69,12 +75,16 @@ public class MostPopularResourcesTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Resources", List.of("Resource", "Amount"), List.of("/downloads/product1!!!1", "/downloads/product3!!!1", "/downloads/product2!!!1"));
+        Table expected = new Table("Resources",
+            List.of("Resource", "Amount"),
+            List.of("/downloads/product1!!!1", "/downloads/product3!!!1", "/downloads/product2!!!1")
+        );
 
         Table response = mostPopularResources.collectInformationAboutMostPopularResources(
             "2010-01-01",
             "2020-01-01",
-            logs);
+            logs
+        );
 
         assertThat(expected).isEqualTo(response);
     }

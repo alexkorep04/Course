@@ -11,15 +11,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AdocTest {
     Adoc adoc;
+
     @BeforeEach
     public void createObject() {
         adoc = new Adoc();
     }
+
     @Test
     @DisplayName("Testing printing adoc")
     public void testPrintingMarkdown() {
         Table
-            table = new Table("Dates", List.of("Date", "Amount"), List.of("2013-09-21!!!2", "2017-09-21!!!1", "2019-09-21!!!1"));
+            table = new Table("Dates",
+            List.of("Date", "Amount"),
+            List.of("2013-09-21!!!2", "2017-09-21!!!1", "2019-09-21!!!1")
+        );
 
         String expected = new String(
             "=== Dates\n" +
@@ -34,7 +39,6 @@ public class AdocTest {
 
         String response = adoc.printTable(table).toString();
 
-        System.out.println(response);
-        //assertThat(expected).isEqualTo(response);
+        assertThat(expected).isEqualTo(response);
     }
 }

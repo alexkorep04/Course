@@ -19,14 +19,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CodeResponsesTest {
     CodeResponses codeResponses;
+
     @BeforeEach
     public void createObject() {
         codeResponses = new CodeResponses();
     }
+
     private static final DateTimeFormatter FORMATTER =
         DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH);
-    private static final DateTimeFormatter FORMATTER2 =
-        DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+
     @Test
     @DisplayName("Test returning of code responses where all logs fits dates")
     public void testReturningOfCodeResponses() {
@@ -44,15 +45,20 @@ public class CodeResponsesTest {
             , new Response(400, 1), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
-        Table expected = new Table("Response codes", List.of("Code", "Name", "Amount"), List.of("201!!!Created!!!2", "200!!!OK!!!1", "400!!!Bad Request!!!1"));
+        Table expected = new Table("Response codes",
+            List.of("Code", "Name", "Amount"),
+            List.of("201!!!Created!!!2", "200!!!OK!!!1", "400!!!Bad Request!!!1")
+        );
 
         Table response = codeResponses.collectResponseCodes(
             "2010-01-01",
             "2020-01-01",
-            logs);
+            logs
+        );
 
         assertThat(expected).isEqualTo(response);
     }
+
     @Test
     @DisplayName("Test returning of code responses where some logs not fits dates")
     public void testReturningOfCodeResponsesWhereSomeLogsNotFitDates() {
@@ -75,7 +81,8 @@ public class CodeResponsesTest {
         Table response = codeResponses.collectResponseCodes(
             "2010-01-01",
             "2020-01-01",
-            logs);
+            logs
+        );
 
         assertThat(expected).isEqualTo(response);
     }

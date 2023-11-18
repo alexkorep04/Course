@@ -11,10 +11,12 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import static org.assertj.core.api.Assertions.assertThat;
+
 public class LogParserTest {
 
     private static final DateTimeFormatter FORMATTER =
         DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH);
+
     @Test
     @DisplayName("Test parsing string to log")
     public void testParseToLog() {
@@ -22,7 +24,8 @@ public class LogParserTest {
             , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
             , new Response(200, 1), "-");
 
-        Log response = LogParser.parseLog("20.20.1.120 - - [21/Sep/2019:09:45:21 +0001] \"GET /downloads/product HTTP/1.3\" 200 1 \"-\" \"Debian APT-HTTP\"");
+        Log response = LogParser.parseLog(
+            "20.20.1.120 - - [21/Sep/2019:09:45:21 +0001] \"GET /downloads/product HTTP/1.3\" 200 1 \"-\" \"Debian APT-HTTP\"");
         assertThat(expected).isEqualTo(response);
     }
 }
