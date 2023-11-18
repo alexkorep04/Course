@@ -60,7 +60,7 @@ public class Launcher {
         List<String> arrayList = new ArrayList<>();
         String[] paths = arguments.get(0).dimension().split(" ");
         for (String path : paths) {
-            arrayList.addAll(path.startsWith("https") ? new URLSource().getLogsByURL(path)
+            arrayList.addAll(path.startsWith("http") ? new URLSource().getLogsByURL(path)
                 : new FileSource().getLogsFromFile(path));
         }
         if (formatType.equals(FormatType.ADOC)) {
