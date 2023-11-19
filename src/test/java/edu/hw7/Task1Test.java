@@ -9,7 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task1Test {
     IncrementClass incrementClass;
-
     @BeforeEach
     public void createObjects() {
         incrementClass = new IncrementClass();
