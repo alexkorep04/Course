@@ -13,9 +13,8 @@ public class SynchronizedPersonDataBase implements PersonDatabase {
         Person person2 = findByName(person.name());
         Person person3 = findByAddress(person.address());
         Person person4 = findByPhone(person.phoneNumber());
-        if (person1 == null || person2 == null || person3 == null || person4 == null) {
-            people.add(person);
-        } else if (!(person1.equals(person2) && person2.equals(person3) && person3.equals(person4))) {
+        if ((person1 == null || person2 == null || person3 == null || person4 == null) ||
+            !(person1.equals(person2) && person2.equals(person3) && person3.equals(person4))) {
             people.add(person);
         }
     }
