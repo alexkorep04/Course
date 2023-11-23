@@ -5,7 +5,7 @@ import java.util.List;
 public class FixedThreadPool implements ThreadPool {
     private final int amountOfThreads;
     private final Thread[] threads;
-    private List<Thread>
+    //private List<Thread>
 
     public FixedThreadPool(int amountOfThreads) {
         this.amountOfThreads = amountOfThreads;
