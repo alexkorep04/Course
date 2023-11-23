@@ -1,5 +1,6 @@
 package edu.hw7.Task3;
 
+import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 public interface PersonDatabase {
@@ -8,9 +9,9 @@ public interface PersonDatabase {
     void delete(int id);
 
 
-    @Nullable Person findByName(String name);
+    @Nullable List<Person> findByName(String name);
 
-    @Nullable Person findByAddress(String address);
+    @Nullable List<Person> findByAddress(String address);
 
-    @Nullable Person findByPhone(String phone);
+    @Nullable List<Person> findByPhone(String phone);
 }
