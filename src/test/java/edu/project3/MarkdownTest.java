@@ -28,14 +28,14 @@ public class MarkdownTest {
             List.of("2013-09-21!!!2", "2017-09-21!!!1", "2019-09-21!!!1")
         );
 
-        String expected = new String(
+        String expected =
             "### Dates\n" +
                 "|Date       |Amount |\n" +
                 "|:---------:|:-----:|\n" +
                 "|2013-09-21 |2      |\n" +
                 "|2017-09-21 |1      |\n" +
                 "|2019-09-21 |1      |\n"
-        );
+        ;
 
         String response = markdown.printTable(table).toString();
 

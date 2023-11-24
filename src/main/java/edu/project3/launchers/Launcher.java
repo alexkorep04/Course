@@ -43,8 +43,7 @@ public class Launcher {
         mostPopularDate = new MostPopularDate();
     }
 
-    @SuppressWarnings("RegexpSinglelineJava")
-    public void start() {
+    private String[] getArgs() {
         for (int i = 0; i < arguments.size(); i++) {
             if (arguments.get(i).type() == TypeOfArg.FROM) {
                 from = arguments.get(i).dimension();
@@ -54,8 +53,12 @@ public class Launcher {
                 formatType = FormatType.ADOC;
             }
         }
-        List<String> arrayList = new ArrayList<>();
         String[] paths = arguments.get(0).dimension().split(" ");
+        return paths;
+    }
+
+    private List<String> getSources(String[] paths) {
+        List<String> arrayList = new ArrayList<>();
         for (String path : paths) {
             if (path.startsWith("http")) {
                 arrayList.addAll(new URLSource().getLogsByURL(path));
@@ -63,37 +66,66 @@ public class Launcher {
                 arrayList.addAll(new FileSource().getLogsFromFile(path));
             }
         }
+        return arrayList;
+    }
+
+    private void getPrinter() {
         if (formatType.equals(FormatType.ADOC)) {
             printer = new Adoc();
         } else {
             printer = new Markdown();
         }
-        Table baseInfo = baseInformation.collectBaseInfo(from,
-            to,
-            Arrays.stream(paths).toList(),
+    }
+
+    private Table getBaseInfo(String[] paths, List<String> arrayList) {
+        return baseInformation.collectBaseInfo(from, to, Arrays.stream(paths).toList(),
             arrayList.stream().map(LogParser::parseLog).collect(
                 Collectors.toList())
         );
+    }
+
+    private Table getCodeResponses(List<String> arrayList) {
+        return codeResponses.collectResponseCodes(from, to,
+            arrayList.stream().map(LogParser::parseLog).collect(
+                Collectors.toList())
+        );
+    }
+
+    private Table getResources(List<String> arrayList) {
+        return mostPopularResources.collectInformationAboutMostPopularResources(from, to,
+            arrayList.stream().map(LogParser::parseLog).collect(
+                Collectors.toList())
+        );
+    }
+
+    private Table getIps(List<String> arrayList) {
+        return mostPopularIPAddresses.collectInformationAboutMostPopularIPAddresses(from, to,
+            arrayList.stream().map(LogParser::parseLog).collect(
+                Collectors.toList())
+        );
+    }
+
+    private Table getDates(List<String> arrayList) {
+        return mostPopularDate.collectInformationAboutMostPopularDate(from, to,
+            arrayList.stream().map(LogParser::parseLog).collect(
+                Collectors.toList())
+        );
+    }
+
+    @SuppressWarnings("RegexpSinglelineJava")
+    public void start() {
+        String[] paths = getArgs();
+        List<String> arrayList = getSources(paths);
+        getPrinter();
+        Table baseInfo = getBaseInfo(paths, arrayList);
         System.out.println(printer.printTable(baseInfo));
-        Table codeInfo = codeResponses.collectResponseCodes(from, to,
-            arrayList.stream().map(LogParser::parseLog).collect(
-                Collectors.toList())
-        );
+        Table codeInfo = getCodeResponses(arrayList);
         System.out.println(printer.printTable(codeInfo));
-        Table resourcesInfo = mostPopularResources.collectInformationAboutMostPopularResources(from, to,
-            arrayList.stream().map(LogParser::parseLog).collect(
-                Collectors.toList())
-        );
+        Table resourcesInfo = getResources(arrayList);
         System.out.println(printer.printTable(resourcesInfo));
-        Table ipInfo = mostPopularIPAddresses.collectInformationAboutMostPopularIPAddresses(from, to,
-            arrayList.stream().map(LogParser::parseLog).collect(
-                Collectors.toList())
-        );
+        Table ipInfo = getIps(arrayList);
         System.out.println(printer.printTable(ipInfo));
-        Table dateInfo = mostPopularDate.collectInformationAboutMostPopularDate(from, to,
-            arrayList.stream().map(LogParser::parseLog).collect(
-                Collectors.toList())
-        );
+        Table dateInfo = getDates(arrayList);
         System.out.println(printer.printTable(dateInfo));
     }
 }

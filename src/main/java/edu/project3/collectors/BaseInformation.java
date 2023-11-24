@@ -10,23 +10,12 @@ import java.util.List;
 public class BaseInformation {
     @SuppressWarnings("ParameterAssignment")
     public Table collectBaseInfo(String from, String to, List<String> sources, List<Log> logs) {
-        List<Log> requiredLogs = new ArrayList<>();
         DateFilter dateFilter = new DateFilter(from, to);
-        for (Log log: logs) {
-            if (dateFilter.isLogFits(log)) {
-                requiredLogs.add(log);
-            }
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String file: sources) {
-            stringBuilder.append(file);
-            stringBuilder.append(" ");
-        }
+        List<Log> requiredLogs = getRequiredLogs(logs, dateFilter);
+        StringBuilder stringBuilder = getSources(sources);
         long sumSize = requiredLogs.stream().map(Log::response).mapToLong(Response::bytesSent).sum();
-        long midSize;
-        if (requiredLogs.size() == 0) {
-            midSize = 0;
-        } else {
+        long midSize = 0;
+        if (requiredLogs.size() != 0) {
             midSize = sumSize / requiredLogs.size();
         }
         int amountOfResponses = requiredLogs.size();
@@ -43,5 +32,24 @@ public class BaseInformation {
         String mid = "Middle size!!!" + midSize;
         return new Table("Base information", List.of("Metrics", "Value"),
             List.of(file, dateFrom, endDate, amount, mid));
+    }
+
+    private List<Log> getRequiredLogs(List<Log> logs, DateFilter dateFilter) {
+        List<Log> requiredLogs = new ArrayList<>();
+        for (Log log: logs) {
+            if (dateFilter.isLogFits(log)) {
+                requiredLogs.add(log);
+            }
+        }
+        return requiredLogs;
+    }
+
+    private StringBuilder getSources(List<String> sources) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String file: sources) {
+            stringBuilder.append(file);
+            stringBuilder.append(" ");
+        }
+        return stringBuilder;
     }
 }

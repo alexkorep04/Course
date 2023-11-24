@@ -34,9 +34,7 @@ public class Adoc implements DefaultPrinter {
                 stringBuilder.append("=");
             }
         }
-        stringBuilder.append("=");
-        stringBuilder.append("=");
-        stringBuilder.append("\n");
+        stringBuilder.append("=").append("=").append("\n");
         for (int i = 0; i < width.size(); i++) {
             stringBuilder.append("|");
             stringBuilder.append(tableHeaders.get(i));
@@ -44,8 +42,7 @@ public class Adoc implements DefaultPrinter {
                 stringBuilder.append(" ");
             }
         }
-        stringBuilder.append("\n");
-        stringBuilder.append("\n");
+        stringBuilder.append("\n").append("\n");
         return stringBuilder;
     }
 
@@ -56,25 +53,21 @@ public class Adoc implements DefaultPrinter {
         for (int i = 0; i < allLines.size(); i++) {
             List<String> parts = Arrays.stream(allLines.get(i).split("!!!")).toList();
             for (int j = 0; j < parts.size(); j++) {
-                stringBuilder.append("|");
-                stringBuilder.append(parts.get(j));
+                stringBuilder.append("|").append(parts.get(j));
                 if (width.get(j) != null) {
                     for (int k = 0; k < width.get(j) - parts.get(j).length(); k++) {
                         stringBuilder.append(" ");
                     }
                 }
             }
-            stringBuilder.append("|");
-            stringBuilder.append("\n");
+            stringBuilder.append("|").append("\n");
         }
         for (int i = 0; i < width.size(); i++) {
             for (int j = 0; j < width.get(i); j++) {
                 stringBuilder.append("=");
             }
         }
-        stringBuilder.append("=");
-        stringBuilder.append("=");
-        stringBuilder.append("=");
+        stringBuilder.append("=").append("=").append("=");
         return stringBuilder;
     }
 }

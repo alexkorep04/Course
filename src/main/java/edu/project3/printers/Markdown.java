@@ -35,9 +35,7 @@ public class Markdown implements DefaultPrinter {
                 stringBuilder.append(" ");
             }
         }
-        stringBuilder.append("|");
-        stringBuilder.append("\n");
-        stringBuilder.append("|");
+        stringBuilder.append("|").append("\n").append("|");
         for (int i = 0; i < width.size(); i++) {
             stringBuilder.append(":");
             for (int j = 1; j < width.get(i); j++) {
@@ -64,8 +62,7 @@ public class Markdown implements DefaultPrinter {
                     }
                 }
             }
-            stringBuilder.append("|");
-            stringBuilder.append("\n");
+            stringBuilder.append("|").append("\n");
         }
         return stringBuilder;
     }

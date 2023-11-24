@@ -26,7 +26,7 @@ public class AdocTest {
             List.of("2013-09-21!!!2", "2017-09-21!!!1", "2019-09-21!!!1")
         );
 
-        String expected = new String(
+        String expected =
             "=== Dates\n" +
                 "|==================\n" +
                 "|Date      |Amount\n" +
@@ -35,7 +35,7 @@ public class AdocTest {
                 "|2017-09-21|1     |\n" +
                 "|2019-09-21|1     |\n" +
                 "==================="
-        );
+        ;
 
         String response = adoc.printTable(table).toString();
 

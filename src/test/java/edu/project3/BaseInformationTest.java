@@ -16,10 +16,41 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BaseInformationTest {
     BaseInformation baseInformation;
-
+    Log log1;
+    Log log2;
+    Log log3;
+    Log log4;
+    Log log5;
+    Log log6;
+    Log log7;
+    Log log8;
     @BeforeEach
     public void createObject() {
         baseInformation = new BaseInformation();
+        log1 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
+            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
+            , new Response(200, 2), "-");
+        log2 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
+            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
+            , new Response(201, 1), "-");
+        log3 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
+            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
+            , new Response(201, 3), "-");
+        log4 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
+            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
+            , new Response(400, 2), "-");
+        log5 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
+            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
+            , new Response(200, 2), "-");
+        log6 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
+            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
+            , new Response(201, 1), "-");
+        log7 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
+            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
+            , new Response(201, 3), "-");
+        log8 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2009:09:45:21 +0001", FORMATTER)
+            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
+            , new Response(400, 2), "-");
     }
 
     private static final DateTimeFormatter FORMATTER =
@@ -28,18 +59,6 @@ public class BaseInformationTest {
     @Test
     @DisplayName("Test returning of base info where all logs fits dates")
     public void testReturningOfCodeResponses() {
-        Log log1 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
-            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
-            , new Response(200, 2), "-");
-        Log log2 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
-            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
-            , new Response(201, 1), "-");
-        Log log3 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
-            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
-            , new Response(201, 3), "-");
-        Log log4 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
-            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
-            , new Response(400, 2), "-");
         List<Log> logs = List.of(log1, log2, log3, log4);
 
         Table expected = new Table("Base information",
@@ -60,19 +79,7 @@ public class BaseInformationTest {
     @Test
     @DisplayName("Test returning of base info where not all logs fits dates")
     public void testReturningOfCodeResponsesWhereNotAllLogsFit() {
-        Log log1 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
-            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
-            , new Response(200, 2), "-");
-        Log log2 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
-            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
-            , new Response(201, 1), "-");
-        Log log3 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2019:09:45:21 +0001", FORMATTER)
-            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
-            , new Response(201, 3), "-");
-        Log log4 = new Log("20.20.1.120", "-", OffsetDateTime.parse("21/Sep/2009:09:45:21 +0001", FORMATTER)
-            , new Request("GET", "/downloads/product", "HTTP/1.3", "Debian APT-HTTP")
-            , new Response(400, 2), "-");
-        List<Log> logs = List.of(log1, log2, log3, log4);
+        List<Log> logs = List.of(log5, log6, log7, log8);
 
         Table expected = new Table("Base information",
             List.of("Metrics", "Value"),
@@ -86,6 +93,6 @@ public class BaseInformationTest {
 
         Table response = baseInformation.collectBaseInfo("2010-01-01", "2020-01-01", List.of("test.txt"), logs);
 
-        //assertThat(expected).isEqualTo(response);
+        assertThat(expected).isEqualTo(response);
     }
 }
