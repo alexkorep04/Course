@@ -14,17 +14,17 @@ public class Task1Test {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
     @BeforeEach
-    void setUp() {
+    public void set() {
         System.setOut(new PrintStream(outputStream));
     }
 
     @Test
     @DisplayName("Client and server basic test")
-    public void run_shouldProcessRequestFromClient() throws InterruptedException {
+    public void testClientAndServer() throws InterruptedException {
         Client client = new Client();
         Server server = new Server();
-        Thread serverThread = new Thread(server::start);
-        serverThread.start();
+        Thread thread = new Thread(server::start);
+        thread.start();
         Thread.sleep(100);
         client.send("личности");
 
