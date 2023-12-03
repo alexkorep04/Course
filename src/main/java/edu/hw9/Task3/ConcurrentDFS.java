@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 public class ConcurrentDFS {
 
     private final ExecutorService executorService;
-    List<Integer> nodes;
+    private List<Integer> nodes;
 
     public ConcurrentDFS(int numThreads) {
         this.executorService = Executors.newFixedThreadPool(numThreads);
