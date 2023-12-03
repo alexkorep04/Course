@@ -6,21 +6,22 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
 public class Client {
-    private final InetSocketAddress hostAddress;
-    private static final int BUFFER_SIZE = 1024;
+    private  final int size;
+    private final InetSocketAddress address;
 
     @SuppressWarnings("MagicNumber")
-    public Client() {
-        this.hostAddress = new InetSocketAddress("localhost", 1337);
+    public Client(int port) {
+        size = 2048;
+        this.address = new InetSocketAddress("localhost", port);
     }
 
     @SuppressWarnings("RegexpSinglelineJava")
     public void send(String word) {
-        try (SocketChannel channel = SocketChannel.open(hostAddress)) {
+        try (SocketChannel channel = SocketChannel.open(address)) {
             ByteBuffer buffer = ByteBuffer.wrap(word.getBytes());
             channel.write(buffer);
             buffer.flip();
-            buffer = ByteBuffer.allocate(BUFFER_SIZE);
+            buffer = ByteBuffer.allocate(size);
             int bytesRead = channel.read(buffer);
             if (bytesRead != 0) {
                 System.out.println(new String(buffer.array()));

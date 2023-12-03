@@ -21,18 +21,33 @@ public class Task1Test {
     @Test
     @DisplayName("Client and server basic test")
     public void testClientAndServer() throws InterruptedException {
-        Client client = new Client();
-        Server server = new Server();
+        Client client1 = new Client(1337);
+        Server server = new Server(1337);
         Thread thread = new Thread(server::start);
         thread.start();
         Thread.sleep(100);
-        client.send("личности");
+        client1.send("личности");
 
-        String expected = "Клиент: личности\nСервер: Не переходи на личности там, где их нет";
+        String expected = "Не переходи на личности там, где их нет";
 
         String response = outputStream.toString().replace("\u0000", "").trim();
 
         assertThat(expected).isEqualTo(response);
     }
+    @Test
+    @DisplayName("Client and server test when no such phrase")
+    public void testClientAndServerNoPhrase() throws InterruptedException {
+        Client client = new Client(8080);
+        Server server = new Server(8080);
+        Thread thread = new Thread(server::start);
+        thread.start();
+        Thread.sleep(100);
+        client.send("программирование");
 
+        String expected = "No such phrase...";
+
+        String response = outputStream.toString().replace("\u0000", "").trim();
+
+        assertThat(expected).isEqualTo(response);
+    }
 }

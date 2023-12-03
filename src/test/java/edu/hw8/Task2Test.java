@@ -33,9 +33,10 @@ public class Task2Test {
             threadPool.start();
             for (int i = 0; i <= 10; i++) {
                 final int index = i;
+                List<Long> finalResponse = response;
                 threadPool.execute(() -> {
                     long result = calculateFibonacci(index);
-                    response.add(result);
+                    finalResponse.add(result);
                 });
             }
             Thread.sleep(1000);
@@ -43,7 +44,7 @@ public class Task2Test {
             throw new RuntimeException(e);
         }
 
-        response.stream().sorted().toList();
+        response = response.stream().sorted().toList();
 
         assertThat(expected).isEqualTo(response);
     }
