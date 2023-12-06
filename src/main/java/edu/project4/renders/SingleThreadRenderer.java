@@ -1,11 +1,11 @@
 package edu.project4.renders;
 
-import edu.project4.functions.Transformation;
 import edu.project4.entities.AffineCoeffs;
 import edu.project4.entities.FractalImage;
 import edu.project4.entities.Pixel;
 import edu.project4.entities.Point;
 import edu.project4.entities.Rectangular;
+import edu.project4.functions.Transformation;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
