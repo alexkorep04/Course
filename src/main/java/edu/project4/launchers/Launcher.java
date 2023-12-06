@@ -21,7 +21,7 @@ public class Launcher {
         Rectangular world, List<Transformation> transformations, ImageFormat imageFormat, Path path
     ) {
         FractalImage fractalImage = FractalImage.createImage(width, height);
-        renderer.render(fractalImage, world, transformations, 10, 1000000, 10);
+        renderer.render(fractalImage, world, transformations, 10, 1000000, 9);
         ImageProcessor imageProcessor = new GammaCorrection();
         imageProcessor.process(fractalImage);
         Saver.saveImage(path, imageFormat, fractalImage);

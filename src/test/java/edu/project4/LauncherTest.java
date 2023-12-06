@@ -3,6 +3,7 @@ package edu.project4;
 import edu.project4.functions.PowerTransformation;
 import edu.project4.entities.ImageFormat;
 import edu.project4.entities.Rectangular;
+import edu.project4.functions.SwirlTransformation;
 import edu.project4.launchers.Launcher;
 import edu.project4.renders.MultiThreadRenderer;
 import org.junit.jupiter.api.Assertions;
@@ -20,7 +21,7 @@ public class LauncherTest {
                 1080,
                 new MultiThreadRenderer(),
                 new Rectangular(-4, -3, 8, 6),
-                List.of(new PowerTransformation()),
+                List.of(new SwirlTransformation()),
                 ImageFormat.JPEG,
                 Path.of("6.jpeg")
             ));

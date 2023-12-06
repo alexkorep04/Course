@@ -12,13 +12,13 @@ public class FractalImage {
     }
 
     public static FractalImage createImage(int width, int height) {
-        Pixel[][] data = new Pixel[width][height];
-        for (int i = 0; i < data.length; i++) {
-            for (int j = 0; j < data[i].length; j++) {
-                data[i][j] = new Pixel(0, 0, 0, 0, 0);
+        Pixel[][] newPixels = new Pixel[width][height];
+        for (int i = 0; i < newPixels.length; i++) {
+            for (int j = 0; j < newPixels[i].length; j++) {
+                newPixels[i][j] = new Pixel(0, 0, 0, 0, 0);
             }
         }
-        return new FractalImage(data, width, height);
+        return new FractalImage(newPixels, width, height);
     }
 
     public Pixel getPixel(int x, int y) {

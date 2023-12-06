@@ -9,7 +9,6 @@ import edu.project4.functions.Transformation;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class MultiThreadRenderer extends SingleThreadRenderer {
     private final ExecutorService executorService = Executors.newFixedThreadPool(12);
@@ -55,11 +54,7 @@ public class MultiThreadRenderer extends SingleThreadRenderer {
             });
         }
         executorService.shutdown();
-        try {
-            executorService.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        executorService.close();
         return canvas;
     }
 }

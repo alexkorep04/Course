@@ -23,9 +23,12 @@ public record AffineCoeffs(double a, double b, double c, double d, double e, dou
             f = ThreadLocalRandom.current().nextDouble(-1, 1);
         }
         return new AffineCoeffs(a, b, c, d, e, f,
-            new Color(ThreadLocalRandom.current().nextInt(0, COLOR_BOUND),
+            new Color(
                 ThreadLocalRandom.current().nextInt(0, COLOR_BOUND),
-                ThreadLocalRandom.current().nextInt(0, COLOR_BOUND)));
+                ThreadLocalRandom.current().nextInt(0, COLOR_BOUND),
+                ThreadLocalRandom.current().nextInt(0, COLOR_BOUND)
+            )
+        );
     }
 
     private static boolean areCoefsValid(double a, double b, double c, double d, double e, double f) {
