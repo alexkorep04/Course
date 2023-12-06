@@ -1,6 +1,6 @@
 package edu.project4.renders;
 
-import edu.project4.Functions.Transformation;
+import edu.project4.functions.Transformation;
 import edu.project4.entities.AffineCoeffs;
 import edu.project4.entities.FractalImage;
 import edu.project4.entities.Pixel;
@@ -53,36 +53,43 @@ public class SingleThreadRenderer implements Renderer {
         }
     }
 
-    @Override
     @SuppressWarnings("MagicNumber")
+    private void doIterations(FractalImage canvas, Rectangular world, List<Transformation> transformations,
+        AffineCoeffs[] coefficientsArray, int iterPerSample, int symmetry) {
+        Point pw = world.getPoint();
+        for (int step = -20; step < iterPerSample; step++) {
+            AffineCoeffs randomCoefficients = getRandomCoefficient(coefficientsArray);
+            pw = getPointAfterAffineTransformation(randomCoefficients, pw);
+            Transformation transformation = getRandomTransformation(transformations);
+            pw = transformation.apply(pw);
+            double theta = 0.0;
+            for (int s = 0; s < symmetry; theta += 2 * Math.PI / symmetry, s++) {
+                Point pwr = getRotatedPoint(pw, theta);
+                if (!world.isContains(pwr)) {
+                    continue;
+                }
+                Pixel pixel =
+                    canvas.getPixel(
+                        (int) ((pwr.x() - world.x()) * canvas.getWidth() / world.width()),
+                        (int) ((pwr.y() - world.y()) * canvas.getHeight() / world.height())
+                    );
+                if (pixel == null) {
+                    continue;
+                }
+                setPixelColor(pixel, randomCoefficients);
+                pixel.setHitCount(pixel.getHitCount() + 1);
+            }
+        }
+    }
+
+    @Override
     public FractalImage render(
         FractalImage canvas, Rectangular world, List<Transformation> transformations,
         int samples, int iterPerSample, int symmetry
     ) {
         AffineCoeffs[] coefficientsArray = generateCoefficients(samples);
         for (int num = 0; num < samples; num++) {
-            Point pw = world.getRandomPoint();
-            for (int step = -20; step < iterPerSample; step++) {
-                AffineCoeffs randomCoefficients = getRandomCoefficient(coefficientsArray);
-                pw = getPointAfterAffineTransformation(randomCoefficients, pw);
-                Transformation transformation = getRandomTransformation(transformations);
-                pw = transformation.apply(pw);
-                double theta = 0.0;
-                for (int s = 0; s < symmetry; theta += 2 * Math.PI / symmetry, s++) {
-                    Point pwr = getRotatedPoint(pw, theta);
-                    if (!world.doesContainPoint(pwr)) {
-                        continue;
-                    }
-                    Pixel pixel =
-                        canvas.getPixel((int) ((pwr.x() - world.x()) * canvas.getWidth() / world.width()),
-                            (int) ((pwr.y() - world.y()) * canvas.getHeight() / world.height()));
-                    if (pixel == null) {
-                        continue;
-                    }
-                    setPixelColor(pixel, randomCoefficients);
-                    pixel.setHitCount(pixel.getHitCount() + 1);
-                }
-            }
+            doIterations(canvas, world, transformations, coefficientsArray, iterPerSample, symmetry);
         }
         return canvas;
     }

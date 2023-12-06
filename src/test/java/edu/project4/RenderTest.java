@@ -1,6 +1,6 @@
 package edu.project4;
 
-import edu.project4.Functions.HeartTransformation;
+import edu.project4.functions.HeartTransformation;
 import edu.project4.entities.FractalImage;
 import edu.project4.entities.Rectangular;
 import edu.project4.renders.MultiThreadRenderer;
@@ -21,7 +21,8 @@ public class RenderTest {
                 List.of(
                     new HeartTransformation()
                 ),
-                10, 10000, 8)
+                10, 10000, 8
+            )
         );
     }
 
@@ -35,7 +36,8 @@ public class RenderTest {
                 List.of(
                     new HeartTransformation()
                 ),
-                10, 10000, 8)
+                10, 10000, 8
+            )
         );
     }
 }

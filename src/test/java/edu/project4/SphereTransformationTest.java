@@ -1,8 +1,7 @@
 package edu.project4;
 
-import edu.project4.Functions.SinusTransformation;
-import edu.project4.Functions.SphereTransformation;
-import edu.project4.Functions.Transformation;
+import edu.project4.functions.SphereTransformation;
+import edu.project4.functions.Transformation;
 import edu.project4.entities.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,16 +1,16 @@
-package edu.project4.Functions;
+package edu.project4.functions;
 
 import edu.project4.entities.Point;
 
-public class HeartTransformation implements Transformation {
-
+public class HyperbolicTransformation implements Transformation {
     @Override
     public Point apply(Point point) {
         double x = point.x();
         double y = point.y();
+        double theta = Math.atan(y / x);
         double sqrt = Math.sqrt(x * x + y * y);
-        double newX = sqrt * Math.sin(sqrt * Math.atan(y / x));
-        double newY = -sqrt * Math.cos(sqrt * Math.atan(y / x));
+        double newX = Math.sin(theta) / sqrt;
+        double newY = sqrt * Math.cos(theta);
         return new Point(newX, newY);
     }
 }

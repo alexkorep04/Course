@@ -1,4 +1,4 @@
-package edu.project4.Functions;
+package edu.project4.functions;
 
 import edu.project4.entities.Point;
 

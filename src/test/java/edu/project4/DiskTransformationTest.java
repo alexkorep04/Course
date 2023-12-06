@@ -1,7 +1,7 @@
 package edu.project4;
 
-import edu.project4.Functions.DiskTransformation;
-import edu.project4.Functions.Transformation;
+import edu.project4.functions.DiskTransformation;
+import edu.project4.functions.Transformation;
 import edu.project4.entities.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class DiskTransformationTest {
 
         Point expected = new Point(-0.12770684781648475, -0.32846349503275585);
 
-        Point response =  diskTransformation.apply(new Point(0.5, 1));
+        Point response = diskTransformation.apply(new Point(0.5, 1));
 
         assertThat(expected).isEqualTo(response);
     }

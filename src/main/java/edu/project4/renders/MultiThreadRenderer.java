@@ -1,6 +1,6 @@
 package edu.project4.renders;
 
-import edu.project4.Functions.Transformation;
+import edu.project4.functions.Transformation;
 import edu.project4.entities.AffineCoeffs;
 import edu.project4.entities.FractalImage;
 import edu.project4.entities.Pixel;
@@ -9,15 +9,15 @@ import edu.project4.entities.Rectangular;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import java.util.concurrent.TimeUnit;
 
 public class MultiThreadRenderer extends SingleThreadRenderer {
-    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(12);
 
     @SuppressWarnings("MagicNumber")
     private void doIterations(FractalImage canvas, Rectangular world, List<Transformation> transformations,
         AffineCoeffs[] coefficientsArray, int iterPerSample, int symmetry) {
-        Point pw = world.getRandomPoint();
+        Point pw = world.getPoint();
         for (int step = -20; step < iterPerSample; step++) {
             AffineCoeffs randomCoefficients = getRandomCoefficient(coefficientsArray);
             pw = getPointAfterAffineTransformation(randomCoefficients, pw);
@@ -26,7 +26,7 @@ public class MultiThreadRenderer extends SingleThreadRenderer {
             double theta = 0.0;
             for (int s = 0; s < symmetry; theta += 2 * Math.PI / symmetry, s++) {
                 Point pwr = getRotatedPoint(pw, theta);
-                if (!world.doesContainPoint(pwr)) {
+                if (!world.isContains(pwr)) {
                     continue;
                 }
                 Pixel pixel =
@@ -55,6 +55,11 @@ public class MultiThreadRenderer extends SingleThreadRenderer {
             });
         }
         executorService.shutdown();
+        try {
+            executorService.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return canvas;
     }
 }

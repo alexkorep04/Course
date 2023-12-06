@@ -1,13 +1,12 @@
 package edu.project4.entities;
 
-
 public class FractalImage {
-    private Pixel[][] data;
+    private Pixel[][] pixels;
     private int height;
     private int width;
 
-    private FractalImage(Pixel[][] data, int width, int height) {
-        this.data = data;
+    private FractalImage(Pixel[][] pixels, int width, int height) {
+        this.pixels = pixels;
         this.height = height;
         this.width = width;
     }
@@ -24,7 +23,7 @@ public class FractalImage {
 
     public Pixel getPixel(int x, int y) {
         if (isContains(x, y)) {
-            return data[x][y];
+            return pixels[x][y];
         }
         return null;
     }
@@ -37,15 +36,8 @@ public class FractalImage {
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
 }

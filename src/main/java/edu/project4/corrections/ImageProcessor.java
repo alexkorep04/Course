@@ -1,4 +1,4 @@
-package edu.project4.correcions;
+package edu.project4.corrections;
 
 import edu.project4.entities.FractalImage;
 

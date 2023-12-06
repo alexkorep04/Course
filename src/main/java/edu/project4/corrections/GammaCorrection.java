@@ -1,4 +1,4 @@
-package edu.project4.correcions;
+package edu.project4.corrections;
 
 import edu.project4.entities.FractalImage;
 import edu.project4.entities.Pixel;
@@ -9,7 +9,7 @@ public class GammaCorrection implements ImageProcessor {
     @Override
     public void process(FractalImage image) {
         double max = 0;
-        double gamma = 2.2;
+        double gamma = 2.3;
         for (int row = 0; row < image.getWidth(); row++) {
             for (int col = 0; col < image.getHeight(); col++) {
                 Pixel pixel = image.getPixel(row, col);

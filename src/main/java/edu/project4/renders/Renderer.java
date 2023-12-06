@@ -1,6 +1,6 @@
 package edu.project4.renders;
 
-import edu.project4.Functions.Transformation;
+import edu.project4.functions.Transformation;
 import edu.project4.entities.FractalImage;
 import edu.project4.entities.Rectangular;
 import java.util.List;

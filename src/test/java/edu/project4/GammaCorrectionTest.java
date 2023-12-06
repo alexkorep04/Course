@@ -1,6 +1,6 @@
 package edu.project4;
 
-import edu.project4.correcions.GammaCorrection;
+import edu.project4.corrections.GammaCorrection;
 import edu.project4.entities.FractalImage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
