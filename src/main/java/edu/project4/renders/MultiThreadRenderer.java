@@ -28,8 +28,7 @@ public class MultiThreadRenderer extends SingleThreadRenderer {
                 if (!world.isContains(pwr)) {
                     continue;
                 }
-                Pixel pixel =
-                    canvas.getPixel((int) ((pwr.x() - world.x()) * canvas.getWidth() / world.width()),
+                Pixel pixel = canvas.getPixel((int) ((pwr.x() - world.x()) * canvas.getWidth() / world.width()),
                         (int) ((pwr.y() - world.y()) * canvas.getHeight() / world.height()));
                 if (pixel == null) {
                     continue;

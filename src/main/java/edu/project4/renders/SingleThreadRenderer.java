@@ -76,7 +76,15 @@ public class SingleThreadRenderer implements Renderer {
                 if (pixel == null) {
                     continue;
                 }
-                setPixelColor(pixel, randomCoefficients);
+                if (pixel.getHitCount() == 0) {
+                    pixel.setR(randomCoefficients.color().getRed());
+                    pixel.setG(randomCoefficients.color().getGreen());
+                    pixel.setB(randomCoefficients.color().getBlue());
+                } else {
+                    pixel.setR((pixel.getR() + randomCoefficients.color().getRed()) / 2);
+                    pixel.setG((pixel.getG() + randomCoefficients.color().getGreen()) / 2);
+                    pixel.setB((pixel.getB() + randomCoefficients.color().getBlue()) / 2);
+                }
                 pixel.setHitCount(pixel.getHitCount() + 1);
             }
         }
