@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -53,7 +54,7 @@ public class Collector {
     public List<Double> getAllStatistics() {
         reentrantLock.readLock().lock();
         try {
-            Thread.sleep(100);
+            Thread.sleep(2000);
             executorService.shutdown();
             return allStatistics;
         } catch (InterruptedException e) {
