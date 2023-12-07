@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 
 public class FileFinder extends RecursiveTask<List<String>> {
@@ -23,13 +22,13 @@ public class FileFinder extends RecursiveTask<List<String>> {
     protected List<String> compute() {
         List<String> ans = new ArrayList<>();
         List<FileFinder> forks = new ArrayList<>();
-        try(DirectoryStream<Path> pathDirectoryStream = Files.newDirectoryStream(directory)) {
-            for(Path path: pathDirectoryStream) {
-                if(Files.isDirectory(path)) {
+        try (DirectoryStream<Path> pathDirectoryStream = Files.newDirectoryStream(directory)) {
+            for (Path path: pathDirectoryStream) {
+                if (Files.isDirectory(path)) {
                     FileFinder finder = new FileFinder(path, predicate);
                     forks.add(finder);
                     finder.fork();
-                } else if(Files.isRegularFile(path) && predicate.test(path)) {
+                } else if (Files.isRegularFile(path) && predicate.test(path)) {
                     ans.add(path.toString());
                 }
             }

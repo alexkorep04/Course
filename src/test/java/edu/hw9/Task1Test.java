@@ -1,31 +1,29 @@
 package edu.hw9;
 
 import edu.hw9.Task1.Collector;
-import edu.hw9.Task1.Type;
-import org.junit.jupiter.api.BeforeEach;
+import edu.hw9.Task1.Statistics;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import static org.assertj.core.api.Assertions.*;
+
 public class Task1Test {
-    Collector collector;
-    @BeforeEach
-    public void createObjects() {
-        collector = new Collector(3);
-    }
-
     @Test
-    @DisplayName("Test collecting data")
-    public void testData() {
-        collector.push(Type.MIN, new double[]{4, 1, 0, 3});
-        collector.push(Type.MAX, new double[]{4, 1, 0, 3});
-        collector.push(Type.AVG, new double[]{4, 1, 0, 3});
-        collector.push(Type.SUM, new double[]{4, 1, 0, 3});
+    @DisplayName("Test collector")
+    public void testCollector() {
+        Collector collector = new Collector(3);
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.execute(() -> collector.push("metric1",  new double[]{ 1.0, -1.0, 6.0, 4.1, 5.4}));
+        executorService.execute(() -> collector.push("metric2",  new double[]{ -6.7, 5.7, 3.2, -3.2, 1.0}));
+        executorService.execute(() -> collector.push("metric3",  new double[]{ -4.7, 5.7, 3.2, -3.2, 1.0}));
+        executorService.execute(() -> collector.push("metric4",  new double[]{1.0}));
+        List<Statistics> statistics = collector.getStatistics();
 
-        List<Double> expected = List.of(0.0, 4.0, 2.0, 8.0);
-
-        List<Double> response = collector.getAllStatistics();
-
-        assertThat(expected).isEqualTo(response);
+        assertThat(statistics).contains(new Statistics("metric1", -1.0, 6.0, 15.5, 3.1));
+        assertThat(statistics).contains(new Statistics("metric2", -6.7, 5.7, 0, 0));
+        assertThat(statistics).contains(new Statistics("metric3", -4.7, 5.7, 2, 0.4));
+        assertThat(statistics).contains(new Statistics("metric4", 1.0, 1.0, 1.0, 1.0));
     }
 }

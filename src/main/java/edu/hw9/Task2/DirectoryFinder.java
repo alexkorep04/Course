@@ -23,17 +23,17 @@ public class DirectoryFinder extends RecursiveTask<List<String>> {
         List<String> ans = new ArrayList<>();
         List<DirectoryFinder> forks = new ArrayList<>();
         AtomicInteger counter = new AtomicInteger(0);
-        try(DirectoryStream<Path> pathDirectoryStream = Files.newDirectoryStream(directory)) {
-            for(Path path: pathDirectoryStream) {
-                if(Files.isDirectory(path)) {
+        try (DirectoryStream<Path> pathDirectoryStream = Files.newDirectoryStream(directory)) {
+            for (Path path: pathDirectoryStream) {
+                if (Files.isDirectory(path)) {
                     DirectoryFinder finder = new DirectoryFinder(path, minFilesInDirectory);
                     forks.add(finder);
                     finder.fork();
-                } else if(Files.isRegularFile(path)) {
+                } else if (Files.isRegularFile(path)) {
                     counter.incrementAndGet();
                 }
             }
-            if(minFilesInDirectory <= counter.get()) {
+            if (minFilesInDirectory <= counter.get()) {
                 ans.add(directory.toString());
             }
         } catch (IOException e) {
