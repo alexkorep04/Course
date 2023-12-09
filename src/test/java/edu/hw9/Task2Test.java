@@ -22,7 +22,7 @@ public class Task2Test {
     public void testDirectoryFinder() {
         directoryFinder = new DirectoryFinder(Path.of("./src/main/java/edu/hw9/Task2/files/"), 3);
         forkJoinPool = new ForkJoinPool();
-        List<String> expected = List.of(".\\src\\main\\java\\edu\\hw9\\Task2\\files\\dir", ".\\src\\main\\java\\edu\\hw9\\Task2\\files\\dir\\dir2");
+        List<String> expected = List.of("./src/main/java/edu/hw9/Task2/files/dir", "./src/main/java/edu/hw9/Task2/files/dir/dir2");
 
         List<String> response = forkJoinPool.invoke(directoryFinder);
         response = response.stream().sorted().toList();
@@ -56,10 +56,10 @@ public class Task2Test {
         });
         forkJoinPool = new ForkJoinPool();
 
-        List<String> expected = List.of(".\\src\\main\\java\\edu\\hw9\\Task2\\files\\2.txt"
-            , ".\\src\\main\\java\\edu\\hw9\\Task2\\files\\dir\\3.txt"
-            , ".\\src\\main\\java\\edu\\hw9\\Task2\\files\\dir\\5.txt"
-            , ".\\src\\main\\java\\edu\\hw9\\Task2\\files\\dir\\dir2\\7.txt");
+        List<String> expected = List.of("./src/main/java/edu/hw9/Task2/files/2.txt"
+            , "./src/main/java/edu/hw9/Task2/files/dir/3.txt"
+            , "./src/main/java/edu/hw9/Task2/files/dir/5.txt"
+            , "./src/main/java/edu/hw9/Task2/files/dir/dir2/7.txt");
 
         List<String> response = forkJoinPool.invoke(fileFinder);
 
@@ -74,8 +74,8 @@ public class Task2Test {
             "rtf".equals(getFileExtension(p.toFile())));
         forkJoinPool = new ForkJoinPool();
 
-        List<String> expected = List.of(".\\src\\main\\java\\edu\\hw9\\Task2\\files\\1.rtf"
-            , ".\\src\\main\\java\\edu\\hw9\\Task2\\files\\dir\\dir2\\8.rtf");
+        List<String> expected = List.of("./src/main/java/edu/hw9/Task2/files/1.rtf"
+            , "./src/main/java/edu/hw9/Task2/files/dir/dir2/8.rtf");
 
         List<String> response = forkJoinPool.invoke(fileFinder);
 
