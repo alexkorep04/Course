@@ -30,6 +30,7 @@ public class Collector {
         }
     }
 
+    @SuppressWarnings("MagicNumber")
     public List<Statistics> getStatistics() throws InterruptedException {
         Thread.sleep(500);
         while (atomicInteger.get() != 0) {
