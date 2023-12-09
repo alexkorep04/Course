@@ -62,6 +62,7 @@ public class Task2Test {
             , "./src/main/java/edu/hw9/Task2/files/dir/dir2/7.txt");
 
         List<String> response = forkJoinPool.invoke(fileFinder);
+        response = response.stream().sorted().toList();
 
         assertThat(expected.size()).isEqualTo(response.size());
         assertThat(expected).isEqualTo(response);
@@ -78,6 +79,7 @@ public class Task2Test {
             , "./src/main/java/edu/hw9/Task2/files/dir/dir2/8.rtf");
 
         List<String> response = forkJoinPool.invoke(fileFinder);
+        response = response.stream().sorted().toList();
 
         assertThat(expected.size()).isEqualTo(response.size());
         assertThat(expected).isEqualTo(response);
