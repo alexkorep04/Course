@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.*;
 
 public class Task1Test {
@@ -19,6 +20,7 @@ public class Task1Test {
         executorService.execute(() -> collector.push("metric2",  new double[]{ -6.7, 5.7, 3.2, -3.2, 1.0}));
         executorService.execute(() -> collector.push("metric3",  new double[]{ -4.7, 5.7, 3.2, -3.2, 1.0}));
         executorService.execute(() -> collector.push("metric4",  new double[]{1.0}));
+        Thread.sleep(100);
         List<Statistics> statistics = collector.getStatistics();
 
         assertThat(statistics).contains(new Statistics("metric1", -1.0, 6.0, 15.5, 3.1));
