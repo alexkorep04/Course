@@ -12,9 +12,9 @@ import static org.assertj.core.api.Assertions.*;
 public class Task1Test {
     @Test
     @DisplayName("Test collector")
-    public void testCollector() {
-        Collector collector = new Collector(3);
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+    public void testCollector() throws InterruptedException {
+        Collector collector = new Collector(4);
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
         executorService.execute(() -> collector.push("metric1",  new double[]{ 1.0, -1.0, 6.0, 4.1, 5.4}));
         executorService.execute(() -> collector.push("metric2",  new double[]{ -6.7, 5.7, 3.2, -3.2, 1.0}));
         executorService.execute(() -> collector.push("metric3",  new double[]{ -4.7, 5.7, 3.2, -3.2, 1.0}));

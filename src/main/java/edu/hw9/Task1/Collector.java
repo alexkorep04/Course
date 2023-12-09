@@ -5,13 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Collector {
     private final int amountOfTreads;
     private final ExecutorService service;
+    AtomicInteger atomicInteger;
     private List<Statistics> statistics;
-    private final AtomicInteger atomicInteger;
 
     public Collector(int amountOfTreads) {
         this.amountOfTreads = amountOfTreads;
@@ -21,16 +23,17 @@ public class Collector {
     }
 
     public void push(String name, double[] stats) {
-        atomicInteger.incrementAndGet();
-        service.execute(() -> {
-            statistics.add(new Statistics(name, getMin(stats), getMax(stats), getSum(stats), getAvg(stats)));
-            atomicInteger.decrementAndGet();
-        });
+        if (!service.isShutdown()) {
+            atomicInteger.incrementAndGet();
+            service.execute(() -> {
+                statistics.add(new Statistics(name, getMin(stats), getMax(stats), getSum(stats), getAvg(stats)));
+                atomicInteger.decrementAndGet();
+            });
+        }
     }
 
-    public List<Statistics> getStatistics() {
+    public List<Statistics> getStatistics() throws InterruptedException {
         while (atomicInteger.get() != 0) {
-
         }
         service.shutdown();
         return statistics;
