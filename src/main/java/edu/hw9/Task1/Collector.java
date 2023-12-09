@@ -31,6 +31,7 @@ public class Collector {
     }
 
     public List<Statistics> getStatistics() throws InterruptedException {
+        Thread.sleep(500);
         while (atomicInteger.get() != 0) {
         }
         service.shutdownNow();

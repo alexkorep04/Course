@@ -15,12 +15,12 @@ public class Task1Test {
     @DisplayName("Test collector")
     public void testCollector() throws InterruptedException {
         Collector collector = new Collector(4);
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
         executorService.execute(() -> collector.push("metric1",  new double[]{ 1.0, -1.0, 6.0, 4.1, 5.4}));
         executorService.execute(() -> collector.push("metric2",  new double[]{ -6.7, 5.7, 3.2, -3.2, 1.0}));
         executorService.execute(() -> collector.push("metric3",  new double[]{ -4.7, 5.7, 3.2, -3.2, 1.0}));
         executorService.execute(() -> collector.push("metric4",  new double[]{1.0}));
-        Thread.sleep(1000);
+        Thread.sleep(500);
         List<Statistics> statistics = collector.getStatistics();
 
         assertThat(statistics).contains(new Statistics("metric1", -1.0, 6.0, 15.5, 3.1));
