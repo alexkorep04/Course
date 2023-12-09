@@ -33,7 +33,7 @@ public class Collector {
     public List<Statistics> getStatistics() throws InterruptedException {
         while (atomicInteger.get() != 0) {
         }
-        service.shutdown();
+        service.shutdownNow();
         return statistics;
     }
 
