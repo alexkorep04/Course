@@ -1,8 +1,14 @@
 package edu.hw11.task2;
 
 import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.implementation.FixedValue;
+import net.bytebuddy.description.type.TypeDescription;
+import net.bytebuddy.dynamic.ClassFileLocator;
+import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
+import net.bytebuddy.implementation.MethodCall;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.pool.TypePool;
 import static net.bytebuddy.matcher.ElementMatchers.named;
+import static net.bytebuddy.matcher.ElementMatchers.returns;
 
 public class SumChanger {
     private static String methodName = "sum";
@@ -10,15 +16,15 @@ public class SumChanger {
     private SumChanger() {
     }
 
-    public static int change(int a, int b) throws Exception {
-        Class<?> dynamicType = new ByteBuddy()
-            .subclass(Arithmetic.class)
-            .method(named(methodName))
-            .intercept(FixedValue.value(a * b))
+    public static void change() throws Exception {
+        TypeDescription typeDescription = TypePool.Default.ofSystemLoader()
+            .describe("edu.hw11.task2.Arithmetic")
+            .resolve();
+        new ByteBuddy()
+            .redefine(typeDescription, ClassFileLocator.ForClassLoader.ofSystemLoader())
+            .method(named("sum"))
+            .intercept(MethodCall.invoke(typeDescription.getDeclaredMethods().getLast()).withAllArguments())
             .make()
-            .load(SumChanger.class.getClassLoader())
-            .getLoaded();
-        Object instance = dynamicType.getDeclaredConstructor().newInstance();
-        return (int) instance.getClass().getMethod(methodName, int.class, int.class).invoke(instance, a, b);
+            .load(ClassLoader.getSystemClassLoader(), ClassLoadingStrategy.Default.INJECTION);
     }
 }
