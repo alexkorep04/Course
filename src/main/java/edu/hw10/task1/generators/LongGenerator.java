@@ -19,6 +19,11 @@ public class LongGenerator implements Generator {
                 minVal = (long) ((Min) annotation).value();
             }
         }
+        if(minVal > maxVal) {
+            minVal += maxVal;
+            maxVal = minVal - maxVal;
+            minVal -= maxVal;
+        }
         return random.nextLong(minVal, maxVal);
     }
 }

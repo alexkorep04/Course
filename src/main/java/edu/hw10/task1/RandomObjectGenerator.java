@@ -13,6 +13,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +84,9 @@ public class RandomObjectGenerator {
         List<Object> values = new ArrayList<>();
         for (Parameter parameter: parameters) {
             Class<?> type = parameter.getType();
+            if (!generators.containsKey(type)) {
+                throw new IllegalArgumentException("Generator does not support this type!");
+            }
             Generator<?> generator = generators.get(type);
             values.add(generator.generate(parameter.getAnnotations()));
         }

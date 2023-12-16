@@ -10,10 +10,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Handler<T> implements InvocationHandler {
     private final Object object;
-    private final Map<Method, Map<List<Object>, Object>> runtimeCachedValues = new HashMap<>();
+    private final Map<Method, Map<List<Object>, Object>> runtimeCachedValues = new ConcurrentHashMap<>();
 
     public Handler(Object object) {
         this.object = object;
@@ -52,7 +53,9 @@ public class Handler<T> implements InvocationHandler {
         }
         Object result = getCacheFromFile(method, args, path);
         if (result == null) {
-            result = method.invoke(object, args);
+            synchronized (object) {
+                result = method.invoke(object, args);
+            }
             writeResultToDiskCache(args, result, path);
         }
         return result;
