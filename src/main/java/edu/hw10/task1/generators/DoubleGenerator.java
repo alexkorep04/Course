@@ -19,7 +19,7 @@ public class DoubleGenerator implements Generator {
                 minVal = (double) ((Min) annotation).value();
             }
         }
-        if(minVal > maxVal) {
+        if (minVal > maxVal) {
             minVal += maxVal;
             maxVal = minVal - maxVal;
             minVal -= maxVal;

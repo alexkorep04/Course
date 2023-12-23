@@ -11,8 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Handler<T> implements InvocationHandler {
+    private final Lock lock = new ReentrantLock();
     private final Object object;
     private final Map<Method, Map<List<Object>, Object>> runtimeCachedValues = new ConcurrentHashMap<>();
 
@@ -53,8 +56,11 @@ public class Handler<T> implements InvocationHandler {
         }
         Object result = getCacheFromFile(method, args, path);
         if (result == null) {
-            synchronized (object) {
+            try {
+                lock.lock();
                 result = method.invoke(object, args);
+            } finally {
+                lock.unlock();
             }
             writeResultToDiskCache(args, result, path);
         }

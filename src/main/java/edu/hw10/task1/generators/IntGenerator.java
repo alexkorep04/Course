@@ -19,7 +19,7 @@ public class IntGenerator implements Generator {
                 minVal = (int) ((Min) annotation).value();
             }
         }
-        if(minVal > maxVal) {
+        if (minVal > maxVal) {
             minVal += maxVal;
             maxVal = minVal - maxVal;
             minVal -= maxVal;

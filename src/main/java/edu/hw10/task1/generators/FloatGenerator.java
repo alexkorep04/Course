@@ -19,7 +19,7 @@ public class FloatGenerator implements Generator {
                 minVal = (float) ((Min) annotation).value();
             }
         }
-        if(minVal > maxVal) {
+        if  (minVal > maxVal) {
             minVal += maxVal;
             maxVal = minVal - maxVal;
             minVal -= maxVal;

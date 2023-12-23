@@ -19,7 +19,7 @@ public class CharGenerator implements Generator {
                 minVal = (char) ((Min) annotation).value();
             }
         }
-        if(minVal > maxVal) {
+        if (minVal > maxVal) {
             minVal += maxVal;
             maxVal = (char) (minVal - maxVal);
             minVal -= maxVal;
